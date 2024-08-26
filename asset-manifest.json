@@ -1,0 +1,16 @@
+{
+  "files": {
+    "main.css": "/dnd-battle-arena/static/css/main.4d3ecea6.css",
+    "main.js": "/dnd-battle-arena/static/js/main.4688cd72.js",
+    "static/js/453.5ffc6126.chunk.js": "/dnd-battle-arena/static/js/453.5ffc6126.chunk.js",
+    "static/media/background.jpg": "/dnd-battle-arena/static/media/background.2e14ed2d36e10e6569ff.jpg",
+    "index.html": "/dnd-battle-arena/index.html",
+    "main.4d3ecea6.css.map": "/dnd-battle-arena/static/css/main.4d3ecea6.css.map",
+    "main.4688cd72.js.map": "/dnd-battle-arena/static/js/main.4688cd72.js.map",
+    "453.5ffc6126.chunk.js.map": "/dnd-battle-arena/static/js/453.5ffc6126.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.4d3ecea6.css",
+    "static/js/main.4688cd72.js"
+  ]
+}
