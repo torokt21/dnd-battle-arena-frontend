@@ -1,0 +1,48 @@
+.grid-cell {
+	width: 50px;
+	height: 50px;
+	max-height: 50px;
+	max-width: 50px;
+	min-height: 50px;
+	min-width: 50px;
+	overflow: hidden;
+}
+
+td {
+	padding: 0px;
+	white-space: nowrap;
+}
+
+td:hover {
+	background-color: rgba(0, 0, 0, 0.1);
+	-webkit-box-shadow: inset 2px 2px 19px -7px rgba(255, 255, 255, 0.5);
+	-moz-box-shadow: inset 2px 2px 19px -7px rgba(255, 255, 255, 0.5);
+	box-shadow: inset 2px 2px 19px -7px rgba(255, 255, 255, 0.5);
+}
+
+table {
+	border-collapse: collapse;
+}
+
+.container {
+	background-repeat: no-repeat;
+	background-size: cover;
+	width: auto;
+	display: table;
+	margin: auto;
+}
+
+body {
+	background-color: black;
+	color: white;
+}
+
+.character-image {
+	width: 50px;
+	height: 50px;
+	max-height: 50px;
+	max-width: 50px;
+	min-height: 50px;
+	min-width: 50px;
+	display: block;
+}
