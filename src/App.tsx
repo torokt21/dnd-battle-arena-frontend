@@ -1,5 +1,7 @@
 import "./App.css";
 
+import { Box, Button } from "@mui/material";
+
 import GridCell from "./GridCell";
 import React from "react";
 import SetupCard from "./SetupCard";
@@ -22,9 +24,13 @@ function App() {
 				backgroundRepeat: "no-repeat",
 				backgroundSize: "cover",
 			}}>
-			{gameState === "setup" && <SetupCard />}
+			<SetupCard />
 			{gameState === "playing" && (
-				<button onClick={() => setGameState("setup")}>Beállítások</button>
+				<Box textAlign="center" py={2}>
+					<Button variant="outlined" onClick={() => setGameState("setup")}>
+						Beállítások
+					</Button>
+				</Box>
 			)}
 			<div
 				className="container"
