@@ -25,6 +25,11 @@ export default function SetupCard() {
 		});
 	};
 
+	const handleDoneClick = () => {
+		if (appStore.backgroundImage === undefined) return;
+		appStore.setGameState("playing");
+	};
+
 	return (
 		<div>
 			<div>
@@ -55,6 +60,8 @@ export default function SetupCard() {
 					onChange={(e) => appStore.setBoardHeight(parseInt(e.target.value))}
 				/>
 			</div>
+
+			<button onClick={handleDoneClick}>Kész</button>
 		</div>
 	);
 }

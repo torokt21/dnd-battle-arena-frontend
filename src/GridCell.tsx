@@ -1,5 +1,4 @@
 import { Coordinate } from "./types/Coordinate";
-import { Entity } from "./types/Entity";
 import { useAppStore } from "./AppStore";
 
 type GridCellProps = {
@@ -10,46 +9,18 @@ export default function GridCell(props: GridCellProps) {
 	const { x, y } = props.coordinates;
 	const entity = useAppStore((state) => state.getCellEntity(props.coordinates));
 	const gameState = useAppStore((state) => state.gameState);
+	const setSelectedEntity = useAppStore((state) => state.setSelectedEntity);
+	const selectedEntity = useAppStore((state) => state.selectedEntity);
+	const moveEntity = useAppStore((state) => state.moveEntity);
 
-	function allowDrop(event: React.DragEvent<HTMLTableCellElement>) {
-		console.log("Entity");
-
-		if (!entity) return false;
-		event.preventDefault();
-	}
-
-	const handleDragEnter = (event: React.DragEvent<HTMLTableCellElement>) => {
-		event.preventDefault();
-		var data = event.dataTransfer.getData("text");
-		console.log("Get data", data);
-	};
-
-	const handleDrop = (event: React.DragEvent<HTMLTableCellElement>) => {
-		const id = event.dataTransfer.getData("text");
-		console.log(`Somebody dropped an element with id: ${id}`);
-	};
-
-	const handleDragStart = (event: React.DragEvent<HTMLTableCellElement>) => {
-		event.dataTransfer.setData("text", x + "," + y);
-	};
-
-	const getCellContent = () => {
-		const foundChar = entity;
-		if (foundChar)
-			return (
-				<div>
-					<img
-						className="character-image"
-						src={URL.createObjectURL(foundChar.file)}
-						alt=""
-					/>
-				</div>
-			);
-		return undefined;
-	};
+	const bgImage = entity ? URL.createObjectURL(entity.file) : "";
 
 	const getCellStyle = (): React.CSSProperties | undefined => {
-		let style = {};
+		let style = {
+			backgroundImage: "url(" + bgImage + ")",
+			backgroundRepeat: "no-repeat",
+			backgroundSize: "cover",
+		} as React.CSSProperties;
 
 		if (gameState === "setup")
 			style = {
@@ -57,19 +28,40 @@ export default function GridCell(props: GridCellProps) {
 				border: "1px solid red",
 			};
 
+		if (entity && entity === selectedEntity) {
+			style = {
+				...style,
+				boxShadow: "inset 0 0 10px #0f0, inset 0 0 10px #0f0, inset 0 0 10px #0f0",
+			};
+		}
+
 		return style;
 	};
 
+	const handleClick = () => {
+		if (entity && entity === selectedEntity) {
+			setSelectedEntity(undefined);
+			return;
+		}
+
+		if (!entity && selectedEntity) {
+			moveEntity(selectedEntity, { x, y });
+			return;
+		}
+
+		if (entity) {
+			setSelectedEntity(entity);
+			return;
+		}
+	};
+
 	return (
-		<td
-			draggable
-			className="grid-cell"
-			onDragOver={allowDrop}
-			onDragStart={handleDragStart}
-			onDrop={handleDrop}
-			onDragEnter={handleDragEnter}
-			style={getCellStyle()}>
-			{getCellContent()}
+		<td className="grid-cell" onClick={handleClick} style={getCellStyle()}>
+			{entity && (
+				<div>
+					<img className="character-image" alt="" />
+				</div>
+			)}
 		</td>
 	);
 }

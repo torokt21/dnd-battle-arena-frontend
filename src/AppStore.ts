@@ -6,6 +6,7 @@ import { devtools } from "zustand/middleware";
 
 interface AppState {
 	gameState: GameState;
+	setGameState: (gameState: GameState) => void;
 
 	boardWidth: number;
 	boardHeight: number;
@@ -20,6 +21,9 @@ interface AppState {
 	setEntities: (entities: Entity[]) => void;
 	moveEntity: (entity: Entity, coordinates: Coordinate) => void;
 
+	selectedEntity: Entity | undefined;
+	setSelectedEntity: (entity: Entity | undefined) => void;
+
 	backgroundImage: File | undefined;
 	setBackgroundImage: (backgroundImage: File) => void;
 }
@@ -28,6 +32,7 @@ export const useAppStore = create<AppState>()(
 	devtools(
 		(set, get) => ({
 			gameState: "setup",
+			setGameState: (gameState) => set({ gameState: gameState }),
 
 			boardWidth: 10,
 			boardHeight: 20,
@@ -60,7 +65,14 @@ export const useAppStore = create<AppState>()(
 				});
 			},
 			removeEntity: (entity) =>
-				set((state) => ({ entities: state.entities.filter((e) => e !== entity) })),
+				set((state) => {
+					const selectedEntity =
+						state.selectedEntity === entity ? undefined : state.selectedEntity;
+					return {
+						entities: state.entities.filter((e) => e !== entity),
+						selectedEntity: selectedEntity,
+					};
+				}),
 			setEntities: (entities) => set({ entities }),
 			moveEntity: (entity, coordinates) => {
 				console.log("Move entity", entity, coordinates);
@@ -70,7 +82,6 @@ export const useAppStore = create<AppState>()(
 				});
 
 				set({ entities: clone });
-				console.log("Entities", get().entities);
 			},
 
 			getCellEntity: (coordinates: Coordinate) => {
@@ -81,6 +92,9 @@ export const useAppStore = create<AppState>()(
 
 			backgroundImage: undefined,
 			setBackgroundImage: (backgroundImage: File) => set({ backgroundImage }),
+
+			selectedEntity: undefined,
+			setSelectedEntity: (entity) => set({ selectedEntity: entity }),
 		}),
 		{
 			name: "bear-storage",

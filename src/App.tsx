@@ -1,10 +1,9 @@
 import "./App.css";
 
-import React, { useEffect } from "react";
-
-import { Entity } from "./types/Entity";
 import GridCell from "./GridCell";
+import React from "react";
 import SetupCard from "./SetupCard";
+import background from "./background.jpg";
 import { useAppStore } from "./AppStore";
 
 function App() {
@@ -13,10 +12,20 @@ function App() {
 	const backgroundImageUrl = useAppStore((state) =>
 		state.backgroundImage ? URL.createObjectURL(state.backgroundImage) : ""
 	);
+	const gameState = useAppStore((state) => state.gameState);
+	const setGameState = useAppStore((state) => state.setGameState);
 
 	return (
-		<>
-			<SetupCard />
+		<div
+			style={{
+				backgroundImage: `url(${background})`,
+				backgroundRepeat: "no-repeat",
+				backgroundSize: "cover",
+			}}>
+			{gameState === "setup" && <SetupCard />}
+			{gameState === "playing" && (
+				<button onClick={() => setGameState("setup")}>Beállítások</button>
+			)}
 			<div
 				className="container"
 				style={{
@@ -35,7 +44,7 @@ function App() {
 					</tbody>
 				</table>
 			</div>
-		</>
+		</div>
 	);
 }
 
