@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/dnd-battle-arena/static/css/main.c1203c01.css",
-    "main.js": "/dnd-battle-arena/static/js/main.86d9c00b.js",
+    "main.js": "/dnd-battle-arena/static/js/main.32249810.js",
     "static/js/453.5ffc6126.chunk.js": "/dnd-battle-arena/static/js/453.5ffc6126.chunk.js",
     "index.html": "/dnd-battle-arena/index.html",
     "main.c1203c01.css.map": "/dnd-battle-arena/static/css/main.c1203c01.css.map",
-    "main.86d9c00b.js.map": "/dnd-battle-arena/static/js/main.86d9c00b.js.map",
+    "main.32249810.js.map": "/dnd-battle-arena/static/js/main.32249810.js.map",
     "453.5ffc6126.chunk.js.map": "/dnd-battle-arena/static/js/453.5ffc6126.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.c1203c01.css",
-    "static/js/main.86d9c00b.js"
+    "static/js/main.32249810.js"
   ]
 }
