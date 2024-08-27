@@ -19,7 +19,7 @@ import LinkOffIcon from "@mui/icons-material/LinkOff";
 import NumericUpDown from "./controls/NumericUpDown";
 import { useAppStore } from "./AppStore";
 
-export default function SetupCard() {
+export default function MapSetupWindow() {
 	const appStore = useAppStore((state) => state);
 	const boardWidth = useAppStore((state) => state.boardWidth);
 	const boardHeight = useAppStore((state) => state.boardHeight);

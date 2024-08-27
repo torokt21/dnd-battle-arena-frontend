@@ -6,7 +6,7 @@ import { ThemeProvider, createTheme } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
 import GridCell from "./GridCell";
 import React from "react";
-import SetupCard from "./SetupCard";
+import SetupCard from "./MapSetupWindow";
 import TuneIcon from "@mui/icons-material/Tune";
 import { useAppStore } from "./AppStore";
 
