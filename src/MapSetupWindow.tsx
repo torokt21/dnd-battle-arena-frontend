@@ -4,7 +4,6 @@ import {
 	Dialog,
 	DialogActions,
 	DialogContent,
-	DialogContentText,
 	DialogTitle,
 	IconButton,
 	Paper,
@@ -49,19 +48,6 @@ export default function MapSetupWindow() {
 			URL.revokeObjectURL(objectUrl);
 		};
 		img.src = objectUrl;
-		event.target.value = "";
-	};
-
-	const handleCharactersFileChange = (event: ChangeEvent<HTMLInputElement>) => {
-		if (!event.target.files || event.target.files.length === 0) return;
-
-		Array.from(event.target.files).forEach((file) => {
-			appStore.addEntity({
-				fileSrc: URL.createObjectURL(file),
-				x: -1,
-				y: -1,
-			});
-		});
 		event.target.value = "";
 	};
 
@@ -112,42 +98,34 @@ export default function MapSetupWindow() {
 				Beállítások
 			</DialogTitle>
 			<DialogContent>
-				<DialogContentText>
-					<Box>
-						<label>Térkép</label>
-						<br />
-						<input type="file" onChange={handleMapFileChange} />
-					</Box>
-					<Box>
-						<Box>
-							<label>Karakterek</label>
-							<br />
-							<input type="file" multiple onChange={handleCharactersFileChange} />
-						</Box>
-					</Box>
-					<Box>
-						<label>Oszlopok</label>
-						<Stack direction="row" spacing={2}>
-							<NumericUpDown
-								value={boardWidth}
-								onChangeUp={handleBoardWidthChangeUp}
-								onChangeDown={handleBoardWidthChangeDown}
-							/>
-							<IconButton onClick={() => setLinked(!linked)}>
-								{linked ? <LinkIcon /> : <LinkOffIcon />}
-							</IconButton>
-						</Stack>
-					</Box>
-					<Box>
-						<label>Sorok</label>
-						<br />
+				<Box>
+					<label>Térkép</label>
+					<br />
+					<input type="file" onChange={handleMapFileChange} />
+				</Box>
+
+				<Box>
+					<label>Oszlopok</label>
+					<Stack direction="row" spacing={2}>
 						<NumericUpDown
-							value={boardHeight}
-							onChangeUp={handleBoardHeightChangeUp}
-							onChangeDown={handleBoardHeightChangeDown}
+							value={boardWidth}
+							onChangeUp={handleBoardWidthChangeUp}
+							onChangeDown={handleBoardWidthChangeDown}
 						/>
-					</Box>
-				</DialogContentText>
+						<IconButton onClick={() => setLinked(!linked)}>
+							{linked ? <LinkIcon /> : <LinkOffIcon />}
+						</IconButton>
+					</Stack>
+				</Box>
+				<Box>
+					<label>Sorok</label>
+					<br />
+					<NumericUpDown
+						value={boardHeight}
+						onChangeUp={handleBoardHeightChangeUp}
+						onChangeDown={handleBoardHeightChangeDown}
+					/>
+				</Box>
 			</DialogContent>
 			<DialogActions>
 				{" "}

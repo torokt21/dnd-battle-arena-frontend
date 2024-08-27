@@ -1,10 +1,12 @@
 import "./App.css";
 
-import { Box, Button } from "@mui/material";
+import { Box, Button, Stack } from "@mui/material";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 
 import CssBaseline from "@mui/material/CssBaseline";
+import EntitySetupWindow from "./EntitySetupWindow";
 import GridCell from "./GridCell";
+import PeopleIcon from "@mui/icons-material/People";
 import React from "react";
 import SetupCard from "./MapSetupWindow";
 import TuneIcon from "@mui/icons-material/Tune";
@@ -42,7 +44,8 @@ function App() {
 			<CssBaseline />
 			<Box p={2}>
 				<SetupCard />
-				<div
+				<EntitySetupWindow />
+				<Box
 					className="container"
 					style={{
 						backgroundImage: `url(${backgroundImageUrl})`,
@@ -59,17 +62,24 @@ function App() {
 							))}
 						</tbody>
 					</table>
-				</div>
+				</Box>
 
 				{gameState === "playing" && (
-					<Box textAlign="center" py={2}>
+					<Stack direction="row" spacing={2} py={2} sx={{ justifyContent: "center" }}>
 						<Button
 							variant="contained"
 							startIcon={<TuneIcon />}
 							onClick={() => setGameState("mapSetup")}>
 							Térkép beállítások
 						</Button>
-					</Box>
+
+						<Button
+							variant="contained"
+							startIcon={<PeopleIcon />}
+							onClick={() => setGameState("playerSetup")}>
+							Entitások
+						</Button>
+					</Stack>
 				)}
 			</Box>
 		</ThemeProvider>

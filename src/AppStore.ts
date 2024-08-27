@@ -21,6 +21,8 @@ interface AppState {
 	setEntities: (entities: Entity[]) => void;
 	moveEntity: (entity: Entity, coordinates: Coordinate) => void;
 
+	setEntityName: (entity: Entity, name: string) => void;
+
 	selectedEntity: Entity | undefined;
 	setSelectedEntity: (entity: Entity | undefined) => void;
 
@@ -78,6 +80,15 @@ export const useAppStore = create<AppState>()(
 				console.log("Move entity", entity, coordinates);
 				const clone = get().entities.map((char) => {
 					if (char === entity) return { ...char, x: coordinates.x, y: coordinates.y };
+					return char;
+				});
+
+				set({ entities: clone });
+			},
+
+			setEntityName: (entity, name) => {
+				const clone = get().entities.map((char) => {
+					if (char === entity) return { ...char, name };
 					return char;
 				});
 

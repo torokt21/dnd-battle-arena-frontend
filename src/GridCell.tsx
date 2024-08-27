@@ -1,4 +1,5 @@
 import { Coordinate } from "./types/Coordinate";
+import { Tooltip } from "@mui/material";
 import { useAppStore } from "./AppStore";
 
 type GridCellProps = {
@@ -58,9 +59,9 @@ export default function GridCell(props: GridCellProps) {
 	return (
 		<td className="grid-cell" onClick={handleClick} style={getCellStyle()}>
 			{entity && (
-				<div>
+				<Tooltip arrow title={entity.name} placement="top">
 					<img className="character-image" alt="" />
-				</div>
+				</Tooltip>
 			)}
 		</td>
 	);
