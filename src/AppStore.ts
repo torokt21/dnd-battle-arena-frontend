@@ -35,7 +35,7 @@ export const useAppStore = create<AppState>()(
 			setGameState: (gameState) => set({ gameState: gameState }),
 
 			boardWidth: 10,
-			boardHeight: 20,
+			boardHeight: 10,
 			setBoardWidth: (width) => set({ boardWidth: width }),
 			setBoardHeight: (height) => set({ boardHeight: height }),
 
@@ -91,7 +91,8 @@ export const useAppStore = create<AppState>()(
 			},
 
 			backgroundImageSrc: undefined,
-			setBackgroundImage: (backgroundImage: File) => set({ backgroundImageSrc: URL.createObjectURL(backgroundImage) }),
+			setBackgroundImage: (backgroundImage: File) =>
+				set({ backgroundImageSrc: URL.createObjectURL(backgroundImage) }),
 
 			selectedEntity: undefined,
 			setSelectedEntity: (entity) => set({ selectedEntity: entity }),
