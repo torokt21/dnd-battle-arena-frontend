@@ -13,7 +13,7 @@ export default function GridCell(props: GridCellProps) {
 	const selectedEntity = useAppStore((state) => state.selectedEntity);
 	const moveEntity = useAppStore((state) => state.moveEntity);
 
-	const bgImage = entity ? URL.createObjectURL(entity.file) : "";
+	const bgImage = entity ? entity.fileSrc : "";
 
 	const getCellStyle = (): React.CSSProperties | undefined => {
 		let style = {

@@ -12,7 +12,7 @@ function App() {
 	const boardWidth = useAppStore((state) => state.boardWidth);
 	const boardHeight = useAppStore((state) => state.boardHeight);
 	const backgroundImageUrl = useAppStore((state) =>
-		state.backgroundImage ? URL.createObjectURL(state.backgroundImage) : ""
+		state.backgroundImageSrc ? state.backgroundImageSrc : ""
 	);
 	const gameState = useAppStore((state) => state.gameState);
 	const setGameState = useAppStore((state) => state.setGameState);

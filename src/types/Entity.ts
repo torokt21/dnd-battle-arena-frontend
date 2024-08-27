@@ -1,5 +1,5 @@
 export type Entity = {
-	file: File;
+	fileSrc: string;
 	x: number;
 	y: number;
 };

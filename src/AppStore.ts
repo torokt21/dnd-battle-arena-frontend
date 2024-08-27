@@ -24,7 +24,7 @@ interface AppState {
 	selectedEntity: Entity | undefined;
 	setSelectedEntity: (entity: Entity | undefined) => void;
 
-	backgroundImage: File | undefined;
+	backgroundImageSrc: string | undefined;
 	setBackgroundImage: (backgroundImage: File) => void;
 }
 
@@ -90,8 +90,8 @@ export const useAppStore = create<AppState>()(
 				);
 			},
 
-			backgroundImage: undefined,
-			setBackgroundImage: (backgroundImage: File) => set({ backgroundImage }),
+			backgroundImageSrc: undefined,
+			setBackgroundImage: (backgroundImage: File) => set({ backgroundImageSrc: URL.createObjectURL(backgroundImage) }),
 
 			selectedEntity: undefined,
 			setSelectedEntity: (entity) => set({ selectedEntity: entity }),

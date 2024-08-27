@@ -38,7 +38,7 @@ export default function SetupCard() {
 
 		Array.from(event.target.files).forEach((file) => {
 			appStore.addEntity({
-				file: file,
+				fileSrc: URL.createObjectURL(file),
 				x: -1,
 				y: -1,
 			});
@@ -46,7 +46,7 @@ export default function SetupCard() {
 	};
 
 	const handleDoneClick = () => {
-		if (appStore.backgroundImage === undefined) return;
+		if (appStore.backgroundImageSrc === undefined) return;
 		appStore.setGameState("playing");
 	};
 
