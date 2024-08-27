@@ -22,10 +22,10 @@ export default function GridCell(props: GridCellProps) {
 			backgroundSize: "cover",
 		} as React.CSSProperties;
 
-		if (gameState === "setup")
+		if (gameState === "mapSetup")
 			style = {
 				...style,
-				border: "1px solid red",
+				border: "1px solid rgba(255, 0, 0, 0.5)",
 			};
 
 		if (entity && entity === selectedEntity) {

@@ -1,1 +1,1 @@
-export type GameState = "setup" | "playing";
+export type GameState = "mapSetup" | "playerSetup" | "playing";

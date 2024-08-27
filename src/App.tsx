@@ -66,8 +66,8 @@ function App() {
 						<Button
 							variant="contained"
 							startIcon={<TuneIcon />}
-							onClick={() => setGameState("setup")}>
-							Beállítások
+							onClick={() => setGameState("mapSetup")}>
+							Térkép beállítások
 						</Button>
 					</Box>
 				)}

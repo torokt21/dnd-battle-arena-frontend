@@ -31,7 +31,7 @@ interface AppState {
 export const useAppStore = create<AppState>()(
 	devtools(
 		(set, get) => ({
-			gameState: "setup",
+			gameState: "mapSetup",
 			setGameState: (gameState) => set({ gameState: gameState }),
 
 			boardWidth: 10,

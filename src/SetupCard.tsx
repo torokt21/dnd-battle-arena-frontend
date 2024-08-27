@@ -24,7 +24,7 @@ export default function SetupCard() {
 	const boardWidth = useAppStore((state) => state.boardWidth);
 	const boardHeight = useAppStore((state) => state.boardHeight);
 
-	const open = useAppStore((state) => state.gameState === "setup");
+	const open = useAppStore((state) => state.gameState === "mapSetup");
 	const setGameState = useAppStore((state) => state.setGameState);
 	const setBoardWidth = useAppStore((state) => state.setBoardWidth);
 	const setBoardHeight = useAppStore((state) => state.setBoardHeight);
