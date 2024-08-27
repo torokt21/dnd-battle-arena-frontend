@@ -49,6 +49,7 @@ export default function SetupCard() {
 			URL.revokeObjectURL(objectUrl);
 		};
 		img.src = objectUrl;
+		event.target.value = "";
 	};
 
 	const handleCharactersFileChange = (event: ChangeEvent<HTMLInputElement>) => {
@@ -61,6 +62,7 @@ export default function SetupCard() {
 				y: -1,
 			});
 		});
+		event.target.value = "";
 	};
 
 	const handleDoneClick = () => {
