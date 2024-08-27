@@ -1,5 +1,6 @@
+import { Tooltip, Typography } from "@mui/material";
+
 import { Coordinate } from "./types/Coordinate";
-import { Tooltip } from "@mui/material";
 import { useAppStore } from "./AppStore";
 
 type GridCellProps = {
@@ -13,6 +14,8 @@ export default function GridCell(props: GridCellProps) {
 	const setSelectedEntity = useAppStore((state) => state.setSelectedEntity);
 	const selectedEntity = useAppStore((state) => state.selectedEntity);
 	const moveEntity = useAppStore((state) => state.moveEntity);
+	const showGrid = useAppStore((state) => state.showGrid);
+	const alwaysShowNames = useAppStore((state) => state.alwaysShowNames);
 
 	const bgImage = entity ? entity.fileSrc : "";
 
@@ -23,10 +26,17 @@ export default function GridCell(props: GridCellProps) {
 			backgroundSize: "cover",
 		} as React.CSSProperties;
 
+		if (showGrid) {
+			style = {
+				...style,
+				boxShadow: "0 0 0 1px rgba(0, 0, 0, 0.15) inset",
+			};
+		}
+
 		if (gameState === "mapSetup")
 			style = {
 				...style,
-				border: "1px solid rgba(255, 0, 0, 0.5)",
+				boxShadow: "0 0 0 1px rgba(255, 0, 0, 0.5) inset",
 			};
 
 		if (entity && entity === selectedEntity) {
@@ -59,7 +69,25 @@ export default function GridCell(props: GridCellProps) {
 	return (
 		<td className="grid-cell" onClick={handleClick} style={getCellStyle()}>
 			{entity && (
-				<Tooltip arrow title={entity.name} placement="top">
+				<Tooltip
+					open={entity.name !== "" && alwaysShowNames} // Show tooltip only if name is not empty
+					arrow
+					title={<Typography>{entity.name}</Typography>}
+					placement="top"
+					slotProps={{
+						popper: {
+							sx: { pointerEvents: "none", fontSize: "30px" },
+							modifiers: [
+								{
+									name: "offset",
+									options: {
+										offset: [0, -12],
+									},
+								},
+							],
+						},
+					}}
+					sx={{ pointerEvents: "none", fontSize: "30px" }}>
 					<img className="character-image" alt="" />
 				</Tooltip>
 			)}

@@ -5,10 +5,13 @@ import {
 	DialogActions,
 	DialogContent,
 	DialogTitle,
+	FormControlLabel,
 	IconButton,
 	Paper,
 	PaperProps,
 	Stack,
+	Switch,
+	Typography,
 } from "@mui/material";
 import React, { ChangeEvent, useState } from "react";
 
@@ -27,6 +30,10 @@ export default function MapSetupWindow() {
 	const setGameState = useAppStore((state) => state.setGameState);
 	const setBoardWidth = useAppStore((state) => state.setBoardWidth);
 	const setBoardHeight = useAppStore((state) => state.setBoardHeight);
+	const showGrid = useAppStore((state) => state.showGrid);
+	const setShowGrid = useAppStore((state) => state.setShowGrid);
+	const alwaysShowNames = useAppStore((state) => state.alwaysShowNames);
+	const setAlwaysShowNames = useAppStore((state) => state.setAlwaysShowNames);
 
 	const [linked, setLinked] = useState(true);
 
@@ -98,14 +105,13 @@ export default function MapSetupWindow() {
 				Beállítások
 			</DialogTitle>
 			<DialogContent>
-				<Box>
-					<label>Térkép</label>
-					<br />
+				<Box my={1}>
+					<Typography>Térkép</Typography>
 					<input type="file" onChange={handleMapFileChange} />
 				</Box>
 
-				<Box>
-					<label>Oszlopok</label>
+				<Box my={1}>
+					<Typography>Oszlopok</Typography>
 					<Stack direction="row" spacing={2}>
 						<NumericUpDown
 							value={boardWidth}
@@ -118,12 +124,35 @@ export default function MapSetupWindow() {
 					</Stack>
 				</Box>
 				<Box>
-					<label>Sorok</label>
-					<br />
+					<Typography>Sorok</Typography>
 					<NumericUpDown
 						value={boardHeight}
 						onChangeUp={handleBoardHeightChangeUp}
 						onChangeDown={handleBoardHeightChangeDown}
+					/>
+				</Box>
+
+				<Box my={1}>
+					<FormControlLabel
+						control={
+							<Switch
+								checked={showGrid}
+								onChange={(e, checked) => setShowGrid(checked)}
+							/>
+						}
+						label="Rácsok mutatása mindig"
+					/>
+				</Box>
+
+				<Box my={1}>
+					<FormControlLabel
+						control={
+							<Switch
+								checked={alwaysShowNames}
+								onChange={(e, checked) => setAlwaysShowNames(checked)}
+							/>
+						}
+						label="Nevek mutatása mindig"
 					/>
 				</Box>
 			</DialogContent>

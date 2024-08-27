@@ -13,6 +13,12 @@ interface AppState {
 	setBoardWidth: (width: number) => void;
 	setBoardHeight: (height: number) => void;
 
+	showGrid: boolean;
+	setShowGrid: (showGrid: boolean) => void;
+
+	alwaysShowNames: boolean;
+	setAlwaysShowNames: (alwaysShowNames: boolean) => void;
+
 	getCellEntity: (coordinates: Coordinate) => Entity | undefined;
 
 	entities: Entity[];
@@ -40,6 +46,12 @@ export const useAppStore = create<AppState>()(
 			boardHeight: 10,
 			setBoardWidth: (width) => set({ boardWidth: width }),
 			setBoardHeight: (height) => set({ boardHeight: height }),
+
+			showGrid: true,
+			setShowGrid: (showGrid) => set({ showGrid: showGrid }),
+
+			alwaysShowNames: true,
+			setAlwaysShowNames: (alwaysShowNames) => set({ alwaysShowNames: alwaysShowNames }),
 
 			entities: [],
 			addEntity: (entity) => {
