@@ -70,7 +70,7 @@ export default function GridCell(props: GridCellProps) {
 		<td className="grid-cell" onClick={handleClick} style={getCellStyle()}>
 			{entity && (
 				<Tooltip
-					open={entity.name !== "" && alwaysShowNames} // Show tooltip only if name is not empty
+					open={entity.name !== "" && alwaysShowNames ? true : undefined} // Show tooltip only if name is not empty
 					arrow
 					title={<Typography>{entity.name}</Typography>}
 					placement="top"
