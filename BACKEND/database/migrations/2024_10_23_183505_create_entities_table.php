@@ -11,13 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('scenes', function (Blueprint $table) {
+        Schema::create('entities', function (Blueprint $table) {
             $table->id();
             $table->string('name');
             $table->string('description')->nullable();
-            $table->string('background')->nullable();
-            $table->integer('width')->default(10);
-            $table->integer('height')->default(10);
+            $table->string('image')->nullable();
+            $table->string('color', 7)->nullable();
             $table->timestamps();
         });
     }
@@ -27,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('scenes');
+        Schema::dropIfExists('entities');
     }
 };

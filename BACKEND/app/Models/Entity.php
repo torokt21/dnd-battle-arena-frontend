@@ -5,16 +5,17 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
-class Scene extends Model
+class Entity extends Model
 {
     public $fillable = [
         'name',
         'description',
-        'background',
+        'image',
+        'color',
     ];
 
-    public function entities(): BelongsToMany
+    public function scenes(): BelongsToMany
     {
-        return $this->belongsToMany(Entity::class);
+        return $this->belongsToMany(Scene::class);
     }
 }
