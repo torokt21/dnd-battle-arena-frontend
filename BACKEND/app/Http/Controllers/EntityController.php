@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Entity;
 use App\Http\Requests\StoreEntityRequest;
 use App\Http\Requests\UpdateEntityRequest;
+use Illuminate\Http\Request;
 
 class EntityController extends Controller
 {
@@ -19,13 +20,21 @@ class EntityController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreEntityRequest $request)
+    public function store(Request $request)
     {
+        $validators = [
+            'name' => ['required', 'string', 'max:255'],
+            'description' => ['nullable', 'string'],
+            'image' => ['required'],
+            'color' => ['required', 'string', 'max:7', 'min:7'],
+        ];
+
+        $validated = $request->validate($validators);
+
         $image = $request->file('image');
 
-
         unset($request['image']);
-        $entity = Entity::create($request->validated());
+        $entity = Entity::create($validated);
         return $entity;
     }
 
@@ -40,7 +49,10 @@ class EntityController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateEntityRequest $request, Entity $entity) {}
+    public function update(UpdateEntityRequest $request, Entity $entity)
+    {
+        return "sup2";
+    }
 
     /**
      * Remove the specified resource from storage.

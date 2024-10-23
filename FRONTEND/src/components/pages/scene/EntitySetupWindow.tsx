@@ -20,6 +20,7 @@ import { Entity } from "../../../types/Entity";
 import { useAppStore } from "../../../AppStore";
 
 export default function EntitySetupWindow() {
+	/*
 	const appStore = useAppStore((state) => state);
 	const setGameState = useAppStore((state) => state.setGameState);
 	const entities = useAppStore((state) => state.entities);
@@ -102,6 +103,8 @@ export default function EntitySetupWindow() {
 			</DialogActions>
 		</Dialog>
 	);
+	*/
+	return <>TODO</>;
 }
 
 function PaperComponent(props: PaperProps) {
