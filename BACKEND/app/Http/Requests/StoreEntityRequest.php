@@ -22,7 +22,10 @@ class StoreEntityRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'name' => ['required', 'string', 'max:255'],
+            'description' => ['nullable', 'string'],
+            'image' => ['required', 'image'],
+            'color' => ['required', 'string', 'max:7', 'min:7'],
         ];
     }
 }

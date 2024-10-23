@@ -13,15 +13,7 @@ class EntityController extends Controller
      */
     public function index()
     {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
+        return Entity::orderBy('name')->get();
     }
 
     /**
@@ -29,7 +21,12 @@ class EntityController extends Controller
      */
     public function store(StoreEntityRequest $request)
     {
-        //
+        $image = $request->file('image');
+
+
+        unset($request['image']);
+        $entity = Entity::create($request->validated());
+        return $entity;
     }
 
     /**
@@ -37,30 +34,19 @@ class EntityController extends Controller
      */
     public function show(Entity $entity)
     {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Entity $entity)
-    {
-        //
+        return $entity;
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateEntityRequest $request, Entity $entity)
-    {
-        //
-    }
+    public function update(UpdateEntityRequest $request, Entity $entity) {}
 
     /**
      * Remove the specified resource from storage.
      */
     public function destroy(Entity $entity)
     {
-        //
+        Entity::destroy($entity->id);
     }
 }

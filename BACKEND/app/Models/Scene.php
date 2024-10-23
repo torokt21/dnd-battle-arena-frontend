@@ -17,4 +17,11 @@ class Scene extends Model
     {
         return $this->belongsToMany(Entity::class);
     }
+
+    public static function booted()
+    {
+        static::deleting(function ($scene) {
+            // TODO delete file
+        });
+    }
 }
