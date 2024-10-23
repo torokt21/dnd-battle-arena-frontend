@@ -1,7 +1,7 @@
 import { Tooltip, Typography } from "@mui/material";
 
-import { Coordinate } from "./types/Coordinate";
-import { useAppStore } from "./AppStore";
+import { Coordinate } from "../../../types/Coordinate";
+import { useAppStore } from "../../../AppStore";
 
 type GridCellProps = {
 	coordinates: Coordinate;

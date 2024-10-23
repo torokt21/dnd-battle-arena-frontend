@@ -18,8 +18,8 @@ import React, { ChangeEvent, useState } from "react";
 import Draggable from "react-draggable";
 import LinkIcon from "@mui/icons-material/Link";
 import LinkOffIcon from "@mui/icons-material/LinkOff";
-import NumericUpDown from "./controls/NumericUpDown";
-import { useAppStore } from "./AppStore";
+import NumericUpDown from "../../controls/NumericUpDown";
+import { useAppStore } from "../../../AppStore";
 
 export default function MapSetupWindow() {
 	const appStore = useAppStore((state) => state);

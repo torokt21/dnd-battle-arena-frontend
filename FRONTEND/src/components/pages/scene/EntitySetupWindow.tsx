@@ -16,8 +16,8 @@ import {
 import { ChangeEvent } from "react";
 import ClearIcon from "@mui/icons-material/Clear";
 import Draggable from "react-draggable";
-import { Entity } from "./types/Entity";
-import { useAppStore } from "./AppStore";
+import { Entity } from "../../../types/Entity";
+import { useAppStore } from "../../../AppStore";
 
 export default function EntitySetupWindow() {
 	const appStore = useAppStore((state) => state);
