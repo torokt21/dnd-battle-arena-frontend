@@ -34,6 +34,9 @@ interface AppState {
 
 	backgroundImageSrc: string | undefined;
 	setBackgroundImage: (backgroundImage: File) => void;
+
+	sidebarOpen: boolean;
+	setSidebarOpen: (open: boolean) => void;
 }
 
 export const useAppStore = create<AppState>()(
@@ -119,6 +122,9 @@ export const useAppStore = create<AppState>()(
 
 			selectedEntity: undefined,
 			setSelectedEntity: (entity) => set({ selectedEntity: entity }),
+
+			sidebarOpen: false,
+			setSidebarOpen: (open) => set({ sidebarOpen: open }),
 		}),
 		{
 			name: "bear-storage",
