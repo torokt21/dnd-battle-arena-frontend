@@ -1,8 +1,11 @@
 import { Box, Button, Container, Grid, TextField, Typography } from "@mui/material";
 import React, { useEffect, useState } from "react";
 
+import LoadingIndicator from "../../controls/LoadingIndicator";
+
 type CreateEntityFormProps = {
 	onCreated: () => void;
+	onClose: () => void;
 };
 
 export default function CreateEntityForm(props: CreateEntityFormProps) {
@@ -11,13 +14,14 @@ export default function CreateEntityForm(props: CreateEntityFormProps) {
 	const [color, setColor] = useState("");
 	const [description, setDescription] = useState("");
 	const [preview, setPreview] = useState("");
+	const [loading, setLoading] = useState(false);
 
 	const handleSubmit = (event: React.FormEvent) => {
 		event.preventDefault();
 
 		if (!picture) return;
 
-		console.log({ name, picture, color, description });
+		setLoading(true);
 
 		// Submit to API
 		const formData = new FormData();
@@ -42,6 +46,9 @@ export default function CreateEntityForm(props: CreateEntityFormProps) {
 				setPicture(undefined);
 				setColor("");
 				setDescription("");
+			})
+			.finally(() => {
+				setLoading(false);
 			});
 	};
 
@@ -56,11 +63,16 @@ export default function CreateEntityForm(props: CreateEntityFormProps) {
 		return () => URL.revokeObjectURL(objectUrl);
 	}, [picture]);
 
+	if (loading) return <LoadingIndicator />;
+
 	return (
 		<Container maxWidth="sm">
 			<Typography variant="h4" component="h1" gutterBottom>
 				Create Entity
 			</Typography>
+			<Button variant="outlined" color="secondary" onClick={props.onClose}>
+				Close
+			</Button>
 			<form onSubmit={handleSubmit}>
 				<Grid container spacing={2}>
 					<Grid item xs={12}>
@@ -72,15 +84,17 @@ export default function CreateEntityForm(props: CreateEntityFormProps) {
 						/>
 					</Grid>
 					<Grid item xs={12} textAlign="center">
-						<Box
-							component="img"
-							sx={{
-								maxHeight: { xs: 233, md: 167 },
-								maxWidth: { xs: 350, md: 250 },
-							}}
-							alt="The house from the offer."
-							src={preview}
-						/>
+						{picture && (
+							<Box
+								component="img"
+								sx={{
+									maxHeight: { xs: 233, md: 167 },
+									maxWidth: { xs: 350, md: 250 },
+								}}
+								alt=""
+								src={preview}
+							/>
+						)}
 					</Grid>
 					<Grid item xs={12}>
 						<TextField
