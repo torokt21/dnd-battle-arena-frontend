@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\BattleEntities;
 use App\Http\Requests\StoreBattleEntitiesRequest;
 use App\Http\Requests\UpdateBattleEntitiesRequest;
+use Illuminate\Http\Request;
 
 class BattleEntitiesController extends Controller
 {
@@ -19,7 +20,7 @@ class BattleEntitiesController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreBattleEntitiesRequest $request)
+    public function store(Request $request)
     {
         //
     }
@@ -35,7 +36,7 @@ class BattleEntitiesController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateBattleEntitiesRequest $request, BattleEntities $battleEntities)
+    public function update(Request $request, BattleEntities $battleEntities)
     {
         //
     }

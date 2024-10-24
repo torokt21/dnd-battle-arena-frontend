@@ -59,7 +59,7 @@ export default function CreateScenePage() {
 				</Button>
 			</Grid>
 			<Grid item xs={8}>
-				<Board scene={scene} />
+				<Board scene={scene} localBackground />
 			</Grid>
 		</Grid>
 	);
