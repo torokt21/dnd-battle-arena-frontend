@@ -45,7 +45,7 @@ class BattleController extends Controller
      */
     public function show(Battle $battle)
     {
-        //
+        return response()->json($battle, 201);
     }
 
     /**

@@ -4,12 +4,15 @@ import { Scene } from "../../../types/Scene";
 
 type BoardProps = {
 	scene: Scene;
+	localBackground?: boolean;
 };
 
 function Board(props: BoardProps) {
 	const boardWidth = props.scene.width;
 	const boardHeight = props.scene.height;
-	const backgroundImageUrl = props.scene.background;
+	const backgroundImageUrl = props.localBackground
+		? props.scene.background
+		: process.env.REACT_APP_STORAGE_URL + "/" + props.scene.background;
 
 	return (
 		<Box p={2}>

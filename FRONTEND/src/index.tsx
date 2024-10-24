@@ -3,6 +3,7 @@ import "./App.css";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 
+import BattlePage from "./components/pages/battle/BattlePage";
 import CreateBattlePage from "./components/pages/battle/createBattle/CreateBattlePage";
 import CreateScenePage from "./components/pages/scene/createScene/CreateScenePage";
 import { CssBaseline } from "@mui/material";
@@ -62,6 +63,10 @@ const router = createBrowserRouter(
 				{
 					path: "battle/create",
 					element: <CreateBattlePage />,
+				},
+				{
+					path: "battle/:id",
+					element: <BattlePage />,
 				},
 			],
 		},
