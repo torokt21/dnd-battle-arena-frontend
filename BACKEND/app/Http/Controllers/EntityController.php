@@ -3,9 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\Entity;
-use App\Http\Requests\StoreEntityRequest;
 use App\Http\Requests\UpdateEntityRequest;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
+use Intervention\Image\ImageManager;
+use Intervention\Image\Drivers\Gd\Driver;
 
 class EntityController extends Controller
 {
@@ -31,9 +33,17 @@ class EntityController extends Controller
 
         $validated = $request->validate($validators);
 
-        $image = $request->file('image');
+        // Upload file
+        $file_path = $request->file('image')->store('entities');
+        $validated['image'] = $file_path;
 
-        unset($request['image']);
+        // Resize image
+        $manager = new ImageManager(new Driver());
+        $image = $manager->read(Storage::path($file_path));
+        $image->scaleDown(width: 200);
+        $image->save(Storage::path($file_path));
+
+
         $entity = Entity::create($validated);
         return $entity;
     }

@@ -1,4 +1,4 @@
-import { Box, Button, Container, Grid, TextField, Typography } from "@mui/material";
+import { Box, Button, Grid, TextField } from "@mui/material";
 import React, { useEffect, useState } from "react";
 
 import LoadingIndicator from "../../controls/LoadingIndicator";
@@ -46,6 +46,7 @@ export default function CreateEntityForm(props: CreateEntityFormProps) {
 				setPicture(undefined);
 				setColor("");
 				setDescription("");
+				props.onClose();
 			})
 			.finally(() => {
 				setLoading(false);
@@ -66,13 +67,7 @@ export default function CreateEntityForm(props: CreateEntityFormProps) {
 	if (loading) return <LoadingIndicator />;
 
 	return (
-		<Container maxWidth="sm">
-			<Typography variant="h4" component="h1" gutterBottom>
-				Create Entity
-			</Typography>
-			<Button variant="outlined" color="secondary" onClick={props.onClose}>
-				Close
-			</Button>
+		<>
 			<form onSubmit={handleSubmit}>
 				<Grid container spacing={2}>
 					<Grid item xs={12}>
@@ -127,12 +122,21 @@ export default function CreateEntityForm(props: CreateEntityFormProps) {
 						/>
 					</Grid>
 					<Grid item xs={12}>
-						<Button type="submit" variant="contained" color="primary" fullWidth>
-							Create
-						</Button>
+						<Grid container>
+							<Grid item xs={6}>
+								<Button variant="outlined" onClick={props.onClose}>
+									Mégsem
+								</Button>
+							</Grid>
+							<Grid item xs={6}>
+								<Button type="submit" variant="contained" color="success" fullWidth>
+									Hozzáadás
+								</Button>
+							</Grid>
+						</Grid>
 					</Grid>
 				</Grid>
 			</form>
-		</Container>
+		</>
 	);
 }
