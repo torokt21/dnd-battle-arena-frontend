@@ -25,13 +25,13 @@ const style = {
 };
 
 export default function EntityList() {
-	const { loading, result, error, refetch } = useEntities();
+	const { loading, result: entities, error, refetch } = useEntities();
 	const [open, setOpen] = useState(false);
-	if (loading) return <LoadingIndicator />;
+	if (loading && !entities) return <LoadingIndicator />;
 
 	if (error) return <Container>Error</Container>;
 
-	if (!result) return <Container>No data</Container>;
+	if (!entities) return <Container>No data</Container>;
 
 	return (
 		<>
@@ -41,7 +41,7 @@ export default function EntityList() {
 					Új entitás
 				</Button>
 			</Box>
-			{result?.map((entity) => (
+			{entities?.map((entity) => (
 				<EntityCard key={entity.id} entity={entity} onDeleted={() => refetch()} />
 			))}
 			<Modal open={open}>

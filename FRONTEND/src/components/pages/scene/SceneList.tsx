@@ -18,7 +18,7 @@ type SceneListProps = {
 
 export default function SceneList(props: SceneListProps) {
 	const { loading, result: scenes, error, refetch } = useScenes();
-	if (loading) return <LoadingIndicator />;
+	if (loading && !scenes) return <LoadingIndicator />;
 
 	if (error) return <Container>Error</Container>;
 

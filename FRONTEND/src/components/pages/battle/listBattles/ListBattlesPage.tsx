@@ -9,8 +9,8 @@ import Typography from "@mui/material/Typography";
 import useBattles from "../../../../hooks/useBattles";
 
 export default function ListBattlesPage() {
-	const { loading, result: battles, error, refetch } = useBattles();
-	if (loading) return <LoadingIndicator />;
+	const { loading, result: battles, error } = useBattles();
+	if (loading && !battles) return <LoadingIndicator />;
 
 	if (error) return <Container>Error</Container>;
 
