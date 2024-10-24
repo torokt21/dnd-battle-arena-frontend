@@ -14,4 +14,4 @@ Route::get('/user', function (Request $request) {
 
 Route::apiResource('entities', EntityController::class);
 Route::apiResource('scenes', SceneController::class);
-Route::apiResource('entities.scenes', EntitySceneController::class)->shallow();
+Route::apiResource('entities.scenes', EntitySceneController::class);

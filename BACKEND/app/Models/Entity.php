@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Support\Facades\Storage;
 
 class Entity extends Model
 {
@@ -22,7 +23,7 @@ class Entity extends Model
     public static function booted()
     {
         static::deleting(function ($entity) {
-            // TODO delete file
+            Storage::delete($entity->image);
         });
     }
 }

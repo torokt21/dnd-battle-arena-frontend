@@ -9,15 +9,13 @@ type GridCellProps = {
 
 export default function GridCell(props: GridCellProps) {
 	const { x, y } = props.coordinates;
-	const entity = useAppStore((state) => state.getCellEntity(props.coordinates));
-	const gameState = useAppStore((state) => state.gameState);
 	const setSelectedEntity = useAppStore((state) => state.setSelectedEntity);
 	const selectedEntity = useAppStore((state) => state.selectedEntity);
-	const moveEntity = useAppStore((state) => state.moveEntity);
 	const showGrid = useAppStore((state) => state.showGrid);
 	const alwaysShowNames = useAppStore((state) => state.alwaysShowNames);
 
-	const bgImage = entity ? entity.fileSrc : "";
+	// TODO get entity in cell
+	const bgImage = "";
 
 	const getCellStyle = (): React.CSSProperties | undefined => {
 		let style = {
@@ -33,13 +31,14 @@ export default function GridCell(props: GridCellProps) {
 			};
 		}
 
-		if (gameState === "mapSetup")
+		if (true)
 			style = {
 				...style,
 				boxShadow: "0 0 0 1px rgba(255, 0, 0, 0.5) inset",
 			};
 
-		if (entity && entity === selectedEntity) {
+		// TODO highlight scelected entity
+		if (false) {
 			style = {
 				...style,
 				boxShadow: "inset 0 0 10px #0f0, inset 0 0 10px #0f0, inset 0 0 10px #0f0",
@@ -50,6 +49,7 @@ export default function GridCell(props: GridCellProps) {
 	};
 
 	const handleClick = () => {
+		/*
 		if (entity && entity === selectedEntity) {
 			setSelectedEntity(undefined);
 			return;
@@ -64,15 +64,16 @@ export default function GridCell(props: GridCellProps) {
 			setSelectedEntity(entity);
 			return;
 		}
+			*/
 	};
 
 	return (
 		<td className="grid-cell" onClick={handleClick} style={getCellStyle()}>
-			{entity && (
+			{false && ( // TODO
 				<Tooltip
-					open={entity.name !== "" && alwaysShowNames ? true : undefined} // Show tooltip only if name is not empty
+					open={false && alwaysShowNames ? true : undefined} // Show tooltip only if name is not empty
 					arrow
-					title={<Typography>{entity.name}</Typography>}
+					title={<Typography>Entity name</Typography>}
 					placement="top"
 					slotProps={{
 						popper: {

@@ -5,6 +5,7 @@ import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Container from "@mui/material/Container";
 import Grid from "@mui/material/Grid";
+import { Link } from "react-router-dom";
 import LoadingIndicator from "../../controls/LoadingIndicator";
 import Modal from "@mui/material/Modal";
 import { Scene } from "../../../types/Scene";
@@ -36,7 +37,6 @@ export default function ListScenesPage() {
 
 function SceneList() {
 	const { loading, result: scenes, error, refetch } = useScenes();
-	const [open, setOpen] = React.useState(false);
 	if (loading) return <LoadingIndicator />;
 
 	if (error) return <Container>Error</Container>;
@@ -47,7 +47,7 @@ function SceneList() {
 		<>
 			<Box sx={{ display: "flex", justifyContent: "space-between" }} mb={2}>
 				<Typography variant="h6">Térképek</Typography>
-				<Button variant="contained" onClick={() => setOpen(true)}>
+				<Button variant="contained" component={Link} to="create">
 					Új térkép
 				</Button>
 			</Box>

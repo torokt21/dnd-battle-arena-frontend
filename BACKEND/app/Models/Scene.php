@@ -20,6 +20,11 @@ class Scene extends Model
         return $this->belongsToMany(Entity::class);
     }
 
+    public function getRouteKeyName()
+    {
+        return 'id';
+    }
+
     public static function booted()
     {
         static::deleting(function ($scene) {

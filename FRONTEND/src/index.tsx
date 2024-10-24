@@ -1,6 +1,9 @@
+import "./App.css";
+
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 
+import CreateScenePage from "./components/pages/scene/createScene/CreateScenePage";
 import { CssBaseline } from "@mui/material";
 import Home from "./components/pages/home/Home";
 import Layout from "./components/controls/layout/Layout";
@@ -45,6 +48,10 @@ const router = createBrowserRouter(
 				{
 					path: "scene",
 					element: <ListScenesPage />,
+				},
+				{
+					path: "scene/create",
+					element: <CreateScenePage />,
 				},
 			],
 		},

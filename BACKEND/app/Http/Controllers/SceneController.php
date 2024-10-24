@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Scene;
-use App\Http\Requests\StoreSceneRequest;
 use App\Http\Requests\UpdateSceneRequest;
+use Illuminate\Http\Request;
 
 class SceneController extends Controller
 {
@@ -19,17 +19,23 @@ class SceneController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function store(Request $request)
     {
-        //
-    }
+        $validators = [
+            'name' => ['required', 'string', 'max:255'],
+            'description' => ['nullable', 'string'],
+            'background' => ['required'],
+            'width' => ['required', 'integer'],
+            'height' => ['required', 'integer'],
+        ];
+        $validated = $request->validate($validators);
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(StoreSceneRequest $request)
-    {
-        //
+        // Upload file
+        $file_path = $request->file('background')->store('scenes');
+        $validated['background'] = $file_path;
+
+        $scene = Scene::create($validated);
+        return $scene;
     }
 
     /**
@@ -37,15 +43,8 @@ class SceneController extends Controller
      */
     public function show(Scene $scene)
     {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Scene $scene)
-    {
-        //
+        return "Get one";
+        return $scene;
     }
 
     /**
@@ -53,7 +52,7 @@ class SceneController extends Controller
      */
     public function update(UpdateSceneRequest $request, Scene $scene)
     {
-        //
+        return "TODO";
     }
 
     /**
@@ -61,6 +60,6 @@ class SceneController extends Controller
      */
     public function destroy(Scene $scene)
     {
-        //
+        Scene::destroy($scene->id);
     }
 }
