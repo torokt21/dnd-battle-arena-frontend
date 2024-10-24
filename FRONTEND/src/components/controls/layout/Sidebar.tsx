@@ -6,10 +6,11 @@ import { styled, useTheme } from "@mui/material/styles";
 import Box from "@mui/material/Box";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
-import CssBaseline from "@mui/material/CssBaseline";
 import Divider from "@mui/material/Divider";
 import Drawer from "@mui/material/Drawer";
 import FlagIcon from "@mui/icons-material/Flag";
+import GridOffIcon from "@mui/icons-material/GridOff";
+import GridOnIcon from "@mui/icons-material/GridOn";
 import IconButton from "@mui/material/IconButton";
 import { Link } from "react-router-dom";
 import List from "@mui/material/List";
@@ -21,6 +22,8 @@ import MapIcon from "@mui/icons-material/Map";
 import MenuIcon from "@mui/icons-material/Menu";
 import { Outlet } from "react-router-dom";
 import PeopleIcon from "@mui/icons-material/People";
+import SpeakerNotesIcon from "@mui/icons-material/SpeakerNotes";
+import SpeakerNotesOffIcon from "@mui/icons-material/SpeakerNotesOff";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import { useAppStore } from "../../../AppStore";
@@ -90,6 +93,10 @@ export default function Sidebar() {
 	const theme = useTheme();
 	const open = useAppStore((state) => state.sidebarOpen);
 	const setOpen = useAppStore((state) => state.setSidebarOpen);
+	const showGrid = useAppStore((state) => state.showGrid);
+	const setShowGrid = useAppStore((state) => state.setShowGrid);
+	const alwaysShowNames = useAppStore((state) => state.alwaysShowNames);
+	const setAlwaysShowNames = useAppStore((state) => state.setAlwaysShowNames);
 
 	const handleDrawerOpen = () => {
 		setOpen(true);
@@ -99,9 +106,16 @@ export default function Sidebar() {
 		setOpen(false);
 	};
 
+	const toggleShowGrid = () => {
+		setShowGrid(!showGrid);
+	};
+
+	const toggleAlwaysShowNames = () => {
+		setAlwaysShowNames(!alwaysShowNames);
+	};
+
 	return (
 		<Box sx={{ display: "flex" }}>
-			<CssBaseline />
 			<AppBar position="fixed" open={open}>
 				<Toolbar>
 					<IconButton
@@ -117,9 +131,16 @@ export default function Sidebar() {
 						]}>
 						<MenuIcon />
 					</IconButton>
-					<Typography variant="h6" noWrap component="div">
+					<Typography variant="h6" noWrap component="div" sx={{ flexGrow: 1 }}>
 						DnD Battle Arena
 					</Typography>
+					<IconButton aria-label="delete" onClick={toggleShowGrid}>
+						{showGrid ? <GridOnIcon /> : <GridOffIcon />}
+					</IconButton>
+
+					<IconButton aria-label="delete" onClick={toggleAlwaysShowNames}>
+						{alwaysShowNames ? <SpeakerNotesIcon /> : <SpeakerNotesOffIcon />}
+					</IconButton>
 				</Toolbar>
 			</AppBar>
 			<Drawer

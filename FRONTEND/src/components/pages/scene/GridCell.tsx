@@ -27,21 +27,7 @@ export default function GridCell(props: GridCellProps) {
 		if (showGrid) {
 			style = {
 				...style,
-				boxShadow: "0 0 0 1px rgba(0, 0, 0, 0.15) inset",
-			};
-		}
-
-		if (true)
-			style = {
-				...style,
-				boxShadow: "0 0 0 1px rgba(255, 0, 0, 0.5) inset",
-			};
-
-		// TODO highlight scelected entity
-		if (false) {
-			style = {
-				...style,
-				boxShadow: "inset 0 0 10px #0f0, inset 0 0 10px #0f0, inset 0 0 10px #0f0",
+				boxShadow: "0 0 0 1px rgba(0, 0, 0, 0.2) inset",
 			};
 		}
 
