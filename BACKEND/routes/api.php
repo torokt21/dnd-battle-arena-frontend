@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\BattleController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\EntityController;
@@ -14,3 +15,4 @@ Route::get('/user', function (Request $request) {
 
 Route::apiResource('entities', EntityController::class);
 Route::apiResource('scenes', SceneController::class);
+Route::apiResource('battles', BattleController::class);

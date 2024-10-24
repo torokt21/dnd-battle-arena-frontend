@@ -60,7 +60,7 @@ const router = createBrowserRouter(
 					element: <ListBattlesPage />,
 				},
 				{
-					path: "battle",
+					path: "battle/create",
 					element: <CreateBattlePage />,
 				},
 			],

@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Battle;
 use App\Http\Requests\StoreBattleRequest;
 use App\Http\Requests\UpdateBattleRequest;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class BattleController extends Controller
 {
@@ -13,23 +15,29 @@ class BattleController extends Controller
      */
     public function index()
     {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
+        return Battle::orderBy('updated_at', 'desc')->get();
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreBattleRequest $request)
+    public function store(Request $request)
     {
-        //
+        $rules = [
+            'scene_id' => 'required|integer',
+            'name' => 'required|string',
+            'description' => 'nullable|string',
+        ];
+        // Validate request and return errors
+        $validator = Validator::make($request->all(), $rules);
+
+        if ($validator->fails()) {
+            return response()->json(['errors' => $validator->errors()], 422);
+        }
+
+        $validated = $validator->validated();
+        $battle = Battle::create($validated);
+        return response()->json($battle, 201);
     }
 
     /**
@@ -41,17 +49,9 @@ class BattleController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Battle $battle)
-    {
-        //
-    }
-
-    /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateBattleRequest $request, Battle $battle)
+    public function update(Request $request, Battle $battle)
     {
         //
     }
