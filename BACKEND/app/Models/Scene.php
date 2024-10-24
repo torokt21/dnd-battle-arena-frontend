@@ -11,6 +11,8 @@ class Scene extends Model
         'name',
         'description',
         'background',
+        'width',
+        'height',
     ];
 
     public function entities(): BelongsToMany

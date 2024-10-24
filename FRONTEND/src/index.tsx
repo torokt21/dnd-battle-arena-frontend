@@ -4,7 +4,8 @@ import { ThemeProvider, createTheme } from "@mui/material/styles";
 import { CssBaseline } from "@mui/material";
 import Home from "./components/pages/home/Home";
 import Layout from "./components/controls/layout/Layout";
-import ListEntities from "./components/pages/entity/ListEntities";
+import ListEntitiesPage from "./components/pages/entity/ListEntitiesPage";
+import ListScenesPage from "./components/pages/scene/ListScenesPage";
 import React from "react";
 import ReactDOM from "react-dom/client";
 import reportWebVitals from "./reportWebVitals";
@@ -39,7 +40,11 @@ const router = createBrowserRouter(
 				},
 				{
 					path: "entity",
-					element: <ListEntities />,
+					element: <ListEntitiesPage />,
+				},
+				{
+					path: "scene",
+					element: <ListScenesPage />,
 				},
 			],
 		},

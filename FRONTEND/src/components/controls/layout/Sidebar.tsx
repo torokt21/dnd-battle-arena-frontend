@@ -16,6 +16,7 @@ import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
+import MapIcon from "@mui/icons-material/Map";
 import MenuIcon from "@mui/icons-material/Menu";
 import { Outlet } from "react-router-dom";
 import PeopleIcon from "@mui/icons-material/People";
@@ -145,6 +146,15 @@ export default function Sidebar() {
 								<PeopleIcon />
 							</ListItemIcon>
 							<ListItemText primary="Entitások" />
+						</ListItemButton>
+					</ListItem>
+
+					<ListItem disablePadding>
+						<ListItemButton component={Link} to="/scene">
+							<ListItemIcon>
+								<MapIcon />
+							</ListItemIcon>
+							<ListItemText primary="Térképek" />
 						</ListItemButton>
 					</ListItem>
 				</List>

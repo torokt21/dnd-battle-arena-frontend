@@ -13,7 +13,7 @@ class SceneController extends Controller
      */
     public function index()
     {
-        //
+        return Scene::orderBy('name')->get();
     }
 
     /**

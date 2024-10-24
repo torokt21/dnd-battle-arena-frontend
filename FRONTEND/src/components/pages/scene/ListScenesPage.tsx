@@ -4,14 +4,13 @@ import Avatar from "@mui/material/Avatar";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Container from "@mui/material/Container";
-import CreateEntityForm from "./CreateEntityForm";
-import { Entity } from "../../../types/Entity";
 import Grid from "@mui/material/Grid";
 import LoadingIndicator from "../../controls/LoadingIndicator";
 import Modal from "@mui/material/Modal";
+import { Scene } from "../../../types/Scene";
 import { Stack } from "@mui/material";
 import Typography from "@mui/material/Typography";
-import useEntities from "../../../hooks/useEntities";
+import useScenes from "../../../hooks/useScenes";
 
 const style = {
 	position: "absolute",
@@ -25,56 +24,51 @@ const style = {
 	p: 4,
 };
 
-export default function ListEntities() {
+export default function ListScenesPage() {
 	return (
 		<>
 			<Container>
-				<EntityList />
+				<SceneList />
 			</Container>
 		</>
 	);
 }
 
-function EntityList() {
-	const { loading, result, error, refetch } = useEntities();
+function SceneList() {
+	const { loading, result: scenes, error, refetch } = useScenes();
 	const [open, setOpen] = React.useState(false);
 	if (loading) return <LoadingIndicator />;
 
 	if (error) return <Container>Error</Container>;
 
-	if (!result) return <Container>No data</Container>;
+	if (!scenes) return <Container>No data</Container>;
 
 	return (
 		<>
 			<Box sx={{ display: "flex", justifyContent: "space-between" }} mb={2}>
-				<Typography variant="h6">Entitások</Typography>
+				<Typography variant="h6">Térképek</Typography>
 				<Button variant="contained" onClick={() => setOpen(true)}>
-					Új entitás
+					Új térkép
 				</Button>
 			</Box>
-			{result?.map((entity) => (
-				<EntityCard key={entity.id} entity={entity} onDeleted={() => refetch()} />
+			{scenes?.map((scene) => (
+				<SceneCard key={scene.id} scene={scene} onDeleted={() => refetch()} />
 			))}
-			<Modal open={open}>
-				<Box sx={style}>
-					<CreateEntityForm onCreated={() => refetch()} onClose={() => setOpen(false)} />
-				</Box>
-			</Modal>
 		</>
 	);
 }
 
-interface EntityCardProps {
-	entity: Entity;
+interface SceneCardProps {
+	scene: Scene;
 	deletable?: boolean;
 	onDeleted?: () => void;
 }
 
-function EntityCard(props: EntityCardProps) {
+function SceneCard(props: SceneCardProps) {
 	const deletable = props.deletable ?? true;
 
 	const handleDelete = () => {
-		fetch(process.env.REACT_APP_API_URL + "/entities/" + props.entity.id, {
+		fetch(process.env.REACT_APP_API_URL + "/scenes/" + props.scene.id, {
 			method: "DELETE",
 		}).then(() => {
 			props.onDeleted?.();
@@ -86,21 +80,17 @@ function EntityCard(props: EntityCardProps) {
 			<Grid item xs="auto">
 				<Avatar
 					sx={{
-						bgcolor: props.entity.color,
 						width: 100,
 						height: 100,
-						borderColor: props.entity.color,
-						borderWidth: 4,
-						borderStyle: "solid",
 					}}
 					variant="square"
-					src={process.env.REACT_APP_STORAGE_URL + "/" + props.entity.image}
+					src={process.env.REACT_APP_STORAGE_URL + "/" + props.scene.background}
 				/>
 			</Grid>
 			<Grid xs={10}>
 				<Stack direction="column" p={2}>
-					<Typography fontWeight="bold">{props.entity.name}</Typography>
-					<Typography fontStyle="italic">{props.entity.description}</Typography>
+					<Typography fontWeight="bold">{props.scene.name}</Typography>
+					<Typography fontStyle="italic">{props.scene.description}</Typography>
 				</Stack>
 			</Grid>
 			<Grid item xs="auto" textAlign="right">
