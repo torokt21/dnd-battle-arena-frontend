@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Support\Facades\Storage;
 
 class Scene extends Model
 {
@@ -15,20 +16,10 @@ class Scene extends Model
         'height',
     ];
 
-    public function entities(): BelongsToMany
-    {
-        return $this->belongsToMany(Entity::class);
-    }
-
-    public function getRouteKeyName()
-    {
-        return 'id';
-    }
-
     public static function booted()
     {
         static::deleting(function ($scene) {
-            // TODO delete file
+            Storage::delete($scene->background);
         });
     }
 }

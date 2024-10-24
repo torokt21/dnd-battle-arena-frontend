@@ -9,6 +9,7 @@ import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import CssBaseline from "@mui/material/CssBaseline";
 import Divider from "@mui/material/Divider";
 import Drawer from "@mui/material/Drawer";
+import FlagIcon from "@mui/icons-material/Flag";
 import IconButton from "@mui/material/IconButton";
 import { Link } from "react-router-dom";
 import List from "@mui/material/List";
@@ -140,6 +141,17 @@ export default function Sidebar() {
 				</DrawerHeader>
 				<Divider />
 				<List>
+					<ListItem disablePadding>
+						<ListItemButton component={Link} to="/battle">
+							<ListItemIcon>
+								<FlagIcon />
+							</ListItemIcon>
+							<ListItemText primary="Játékok" />
+						</ListItemButton>
+					</ListItem>
+
+					<Divider />
+
 					<ListItem disablePadding>
 						<ListItemButton component={Link} to="/entity">
 							<ListItemIcon>

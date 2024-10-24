@@ -3,10 +3,12 @@ import "./App.css";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 
+import CreateBattlePage from "./components/pages/battle/createBattle/CreateBattlePage";
 import CreateScenePage from "./components/pages/scene/createScene/CreateScenePage";
 import { CssBaseline } from "@mui/material";
 import Home from "./components/pages/home/Home";
 import Layout from "./components/controls/layout/Layout";
+import ListBattlesPage from "./components/pages/battle/listBattles/ListBattlesPage";
 import ListEntitiesPage from "./components/pages/entity/ListEntitiesPage";
 import ListScenesPage from "./components/pages/scene/ListScenesPage";
 import React from "react";
@@ -52,6 +54,14 @@ const router = createBrowserRouter(
 				{
 					path: "scene/create",
 					element: <CreateScenePage />,
+				},
+				{
+					path: "battle",
+					element: <ListBattlesPage />,
+				},
+				{
+					path: "battle",
+					element: <CreateBattlePage />,
 				},
 			],
 		},
