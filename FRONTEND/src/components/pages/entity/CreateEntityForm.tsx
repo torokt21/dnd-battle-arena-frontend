@@ -11,7 +11,7 @@ type CreateEntityFormProps = {
 export default function CreateEntityForm(props: CreateEntityFormProps) {
 	const [name, setName] = useState("");
 	const [picture, setPicture] = useState<File>();
-	const [color, setColor] = useState("");
+	const [color, setColor] = useState("#000000");
 	const [description, setDescription] = useState("");
 	const [preview, setPreview] = useState("");
 	const [loading, setLoading] = useState(false);
