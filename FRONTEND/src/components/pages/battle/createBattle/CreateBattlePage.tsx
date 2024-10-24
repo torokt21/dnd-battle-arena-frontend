@@ -1,8 +1,10 @@
 import { Button, TextField } from "@mui/material";
 import { Container, Grid, Typography } from "@mui/material";
 
+import { Battle } from "../../../../types/Battle";
 import { Scene } from "../../../../types/Scene";
 import SceneList from "../../scene/SceneList";
+import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 
 export default function CreateBattlePage() {
@@ -10,6 +12,7 @@ export default function CreateBattlePage() {
 	const [battleName, setBattleName] = useState("");
 	const [battleDescription, setBattleDescription] = useState("");
 	const [creating, setCreating] = useState(false);
+	const navigate = useNavigate();
 
 	const handleBattleNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
 		setBattleName(event.target.value);
@@ -30,7 +33,15 @@ export default function CreateBattlePage() {
 				description: battleDescription,
 			}),
 		})
-			.then(() => {})
+			.then((response) => {
+				if (!response.ok) {
+					throw new Error("Failed to create battle");
+				}
+				return response.json();
+			})
+			.then((battle: Battle) => {
+				navigate("/battle/" + battle.id);
+			})
 			.finally(() => {
 				setCreating(false);
 			});
