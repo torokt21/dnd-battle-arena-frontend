@@ -22,11 +22,13 @@ import MapIcon from "@mui/icons-material/Map";
 import MenuIcon from "@mui/icons-material/Menu";
 import { Outlet } from "react-router-dom";
 import PeopleIcon from "@mui/icons-material/People";
+import Slide from "@mui/material/Slide";
 import SpeakerNotesIcon from "@mui/icons-material/SpeakerNotes";
 import SpeakerNotesOffIcon from "@mui/icons-material/SpeakerNotesOff";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import { useAppStore } from "../../../AppStore";
+import useScrollTrigger from "@mui/material/useScrollTrigger";
 
 const drawerWidth = 240;
 
@@ -116,33 +118,35 @@ export default function Sidebar() {
 
 	return (
 		<Box sx={{ display: "flex" }}>
-			<AppBar position="fixed" open={open}>
-				<Toolbar>
-					<IconButton
-						color="inherit"
-						aria-label="open drawer"
-						onClick={handleDrawerOpen}
-						edge="start"
-						sx={[
-							{
-								mr: 2,
-							},
-							open && { display: "none" },
-						]}>
-						<MenuIcon />
-					</IconButton>
-					<Typography variant="h6" noWrap component="div" sx={{ flexGrow: 1 }}>
-						DnD Battle Arena
-					</Typography>
-					<IconButton aria-label="delete" onClick={toggleShowGrid}>
-						{showGrid ? <GridOnIcon /> : <GridOffIcon />}
-					</IconButton>
+			<HideOnScroll>
+				<AppBar open={open}>
+					<Toolbar>
+						<IconButton
+							color="inherit"
+							aria-label="open drawer"
+							onClick={handleDrawerOpen}
+							edge="start"
+							sx={[
+								{
+									mr: 2,
+								},
+								open && { display: "none" },
+							]}>
+							<MenuIcon />
+						</IconButton>
+						<Typography variant="h6" noWrap component="div" sx={{ flexGrow: 1 }}>
+							DnD Battle Arena
+						</Typography>
+						<IconButton onClick={toggleShowGrid}>
+							{showGrid ? <GridOnIcon /> : <GridOffIcon />}
+						</IconButton>
 
-					<IconButton aria-label="delete" onClick={toggleAlwaysShowNames}>
-						{alwaysShowNames ? <SpeakerNotesIcon /> : <SpeakerNotesOffIcon />}
-					</IconButton>
-				</Toolbar>
-			</AppBar>
+						<IconButton onClick={toggleAlwaysShowNames}>
+							{alwaysShowNames ? <SpeakerNotesIcon /> : <SpeakerNotesOffIcon />}
+						</IconButton>
+					</Toolbar>
+				</AppBar>
+			</HideOnScroll>
 			<Drawer
 				sx={{
 					width: drawerWidth,
@@ -197,5 +201,21 @@ export default function Sidebar() {
 				<Outlet />
 			</Main>
 		</Box>
+	);
+}
+
+function HideOnScroll(props: { children: React.ReactElement }) {
+	const { children } = props;
+	// Note that you normally won't need to set the window ref as useScrollTrigger
+	// will default to window.
+	// This is only being set here because the demo is in an iframe.
+	const trigger = useScrollTrigger({
+		target: window,
+	});
+
+	return (
+		<Slide appear={false} direction="down" in={!trigger}>
+			{children ?? <div />}
+		</Slide>
 	);
 }

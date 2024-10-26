@@ -24,7 +24,14 @@ const style = {
 	p: 4,
 };
 
-export default function EntityList() {
+type EntityListProps = {
+	selectable?: boolean;
+	onSelected?: (entity: Entity) => void;
+	deletable?: boolean;
+	onDeleted?: () => void;
+};
+
+export default function EntityList(props: EntityListProps) {
 	const { loading, result: entities, error, refetch } = useEntities();
 	const [open, setOpen] = useState(false);
 	if (loading && !entities) return <LoadingIndicator />;
@@ -32,6 +39,11 @@ export default function EntityList() {
 	if (error) return <Container>Error</Container>;
 
 	if (!entities) return <Container>No data</Container>;
+
+	const handleDeleted = () => {
+		refetch();
+		props.onDeleted?.();
+	};
 
 	return (
 		<>
@@ -42,7 +54,7 @@ export default function EntityList() {
 				</Button>
 			</Box>
 			{entities?.map((entity) => (
-				<EntityCard key={entity.id} entity={entity} onDeleted={() => refetch()} />
+				<EntityCard key={entity.id} entity={entity} {...props} onDeleted={handleDeleted} />
 			))}
 			<Modal open={open}>
 				<Box sx={style}>
@@ -57,6 +69,8 @@ interface EntityCardProps {
 	entity: Entity;
 	deletable?: boolean;
 	onDeleted?: () => void;
+	selectable?: boolean;
+	onSelected?: (entity: Entity) => void;
 }
 
 function EntityCard(props: EntityCardProps) {
@@ -92,7 +106,16 @@ function EntityCard(props: EntityCardProps) {
 					<Typography fontStyle="italic">{props.entity.description}</Typography>
 				</Stack>
 			</Grid>
+
 			<Grid item xs="auto" textAlign="right">
+				{props.selectable && (
+					<Button
+						variant="contained"
+						color="warning"
+						onClick={() => props.onSelected?.(props.entity)}>
+						Kiválaszt
+					</Button>
+				)}
 				{deletable && (
 					<Button variant="contained" color="warning" onClick={handleDelete}>
 						Törlés
