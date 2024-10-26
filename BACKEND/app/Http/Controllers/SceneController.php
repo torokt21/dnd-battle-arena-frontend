@@ -50,7 +50,7 @@ class SceneController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateSceneRequest $request, Scene $scene)
+    public function update(Request $request, Scene $scene)
     {
         return "TODO";
     }

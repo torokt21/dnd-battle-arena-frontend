@@ -1,6 +1,7 @@
 import { Box, Button, Modal } from "@mui/material";
 
 import Board from "../scene/Board";
+import { Entity } from "../../../types/Entity";
 import EntityList from "../entity/EntityList";
 import LoadingIndicator from "../../controls/LoadingIndicator";
 import useBattle from "../../../hooks/useBattle";
@@ -20,8 +21,8 @@ const modalBoxStyle = {
 };
 
 export default function BattlePage() {
-	const battleId = useParams().id;
-	const { loading, result: battle, error } = useBattle(Number(battleId));
+	const battleId = Number(useParams().id);
+	const { loading, result: battle, error } = useBattle(battleId);
 	const [entityModalOpen, setEntityModalOpen] = useState(false);
 
 	if (loading && !battle) {
@@ -31,6 +32,16 @@ export default function BattlePage() {
 	if (error || !battle) {
 		return <div>Error</div>;
 	}
+
+	const placeEntity = (entity: Entity) => {
+		fetch(process.env.REACT_APP_API_URL + "/battleEntity", {
+			method: "POST",
+			headers: {
+				"Content-Type": "application/json",
+			},
+			body: JSON.stringify({ entity_id: entity.id, battle_id: battleId }),
+		});
+	};
 
 	return (
 		<>
@@ -42,7 +53,7 @@ export default function BattlePage() {
 
 			<Modal open={entityModalOpen} onClose={() => setEntityModalOpen(false)}>
 				<Box sx={modalBoxStyle}>
-					<EntityList deletable={false} selectable={true} />
+					<EntityList deletable={false} selectable={true} onSelected={placeEntity} />
 				</Box>
 			</Modal>
 		</>

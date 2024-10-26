@@ -86,28 +86,27 @@ function EntityCard(props: EntityCardProps) {
 
 	return (
 		<Grid container mt={1}>
-			<Grid item xs="auto">
-				<Avatar
-					sx={{
-						bgcolor: props.entity.color,
-						width: 100,
-						height: 100,
-						borderColor: props.entity.color,
-						borderWidth: 4,
-						borderStyle: "solid",
-					}}
-					variant="square"
-					src={process.env.REACT_APP_STORAGE_URL + "/" + props.entity.image}
-				/>
-			</Grid>
-			<Grid xs={10}>
-				<Stack direction="column" p={2}>
-					<Typography fontWeight="bold">{props.entity.name}</Typography>
-					<Typography fontStyle="italic">{props.entity.description}</Typography>
+			<Grid item xs={9}>
+				<Stack direction="row" spacing={2}>
+					<Avatar
+						sx={{
+							bgcolor: props.entity.color,
+							width: 100,
+							height: 100,
+							borderColor: props.entity.color,
+							borderWidth: 4,
+							borderStyle: "solid",
+						}}
+						variant="square"
+						src={process.env.REACT_APP_STORAGE_URL + "/" + props.entity.image}
+					/>
+					<Stack direction="column" p={2}>
+						<Typography fontWeight="bold">{props.entity.name}</Typography>
+						<Typography fontStyle="italic">{props.entity.description}</Typography>
+					</Stack>
 				</Stack>
 			</Grid>
-
-			<Grid item xs="auto" textAlign="right">
+			<Grid item xs={3} textAlign="right">
 				{props.selectable && (
 					<Button
 						variant="contained"

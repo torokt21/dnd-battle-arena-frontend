@@ -9,7 +9,7 @@ class Battle extends Model
 {
     protected $fillable = ['scene_id', 'name', 'description'];
     protected $hidden = ['created_at', 'updated_at'];
-    protected $with = ['scene'];
+    protected $with = ['scene', 'battleEntities'];
 
     public function scene(): BelongsTo
     {
@@ -18,6 +18,6 @@ class Battle extends Model
 
     public function battleEntities()
     {
-        return $this->hasMany(BattleEntities::class);
+        return $this->hasMany(BattleEntity::class);
     }
 }
