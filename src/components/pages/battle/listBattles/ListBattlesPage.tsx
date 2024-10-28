@@ -1,4 +1,4 @@
-import { Avatar, Grid, Stack } from "@mui/material";
+import { Avatar, Box, Grid, Stack } from "@mui/material";
 
 import { Battle } from "../../../../types/Battle";
 import Button from "@mui/material/Button";
@@ -19,11 +19,12 @@ export default function ListBattlesPage() {
 	return (
 		<>
 			<Container>
-				<Typography variant="h4">Játékok</Typography>
-
-				<Button component={Link} to="create" variant="contained">
-					Új játék
-				</Button>
+				<Box sx={{ display: "flex", justifyContent: "space-between" }} mb={2}>
+					<Typography variant="h4">Játékok</Typography>
+					<Button component={Link} to="/battle/create" variant="contained">
+						Új játék
+					</Button>
+				</Box>
 
 				{battles?.map((battle) => (
 					<BattleCard key={battle.id} battle={battle} />
