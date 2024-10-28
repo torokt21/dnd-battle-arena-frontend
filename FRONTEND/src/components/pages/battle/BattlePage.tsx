@@ -1,5 +1,6 @@
 import { Box, Button, Modal } from "@mui/material";
 
+import AddIcon from "@mui/icons-material/Add";
 import { BattleEntity } from "../../../types/BattleEntity";
 import Board from "../scene/Board";
 import { Entity } from "../../../types/Entity";
@@ -72,8 +73,14 @@ export default function BattlePage() {
 
 	return (
 		<>
-			<Box>
-				<Button onClick={() => setEntityModalOpen(true)}>Entitás</Button>
+			<Box textAlign="center">
+				<Button
+					variant="contained"
+					color="primary"
+					startIcon={<AddIcon />}
+					onClick={() => setEntityModalOpen(true)}>
+					Entitás
+				</Button>
 			</Box>
 
 			<Board

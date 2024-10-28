@@ -7,7 +7,6 @@ import BattlePage from "./components/pages/battle/BattlePage";
 import CreateBattlePage from "./components/pages/battle/createBattle/CreateBattlePage";
 import CreateScenePage from "./components/pages/scene/createScene/CreateScenePage";
 import { CssBaseline } from "@mui/material";
-import Home from "./components/pages/home/Home";
 import Layout from "./components/controls/layout/Layout";
 import ListBattlesPage from "./components/pages/battle/listBattles/ListBattlesPage";
 import ListEntitiesPage from "./components/pages/entity/ListEntitiesPage";
@@ -42,7 +41,7 @@ const router = createBrowserRouter(
 			children: [
 				{
 					path: "/",
-					element: <Home />,
+					element: <ListBattlesPage />,
 				},
 				{
 					path: "entity",
