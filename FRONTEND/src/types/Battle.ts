@@ -1,3 +1,4 @@
+import { BattleEntity } from "./BattleEntity";
 import { Scene } from "./Scene";
 
 export type Battle = {
@@ -8,4 +9,5 @@ export type Battle = {
 	scene: Scene;
 	created_at: string;
 	updated_at: string;
+	battle_entities: BattleEntity[];
 };

@@ -22,7 +22,7 @@ const modalBoxStyle = {
 
 export default function BattlePage() {
 	const battleId = Number(useParams().id);
-	const { loading, result: battle, error } = useBattle(battleId);
+	const { loading, result: battle, error, refetch } = useBattle(battleId);
 	const [entityModalOpen, setEntityModalOpen] = useState(false);
 
 	if (loading && !battle) {
@@ -40,6 +40,8 @@ export default function BattlePage() {
 				"Content-Type": "application/json",
 			},
 			body: JSON.stringify({ entity_id: entity.id, battle_id: battleId }),
+		}).then(() => {
+			refetch();
 		});
 	};
 
@@ -49,7 +51,7 @@ export default function BattlePage() {
 				<Button onClick={() => setEntityModalOpen(true)}>Entitás</Button>
 			</Box>
 
-			<Board scene={battle.scene} />
+			<Board scene={battle.scene} battleEntities={battle.battle_entities} />
 
 			<Modal open={entityModalOpen} onClose={() => setEntityModalOpen(false)}>
 				<Box sx={modalBoxStyle}>

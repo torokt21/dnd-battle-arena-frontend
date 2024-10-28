@@ -1,9 +1,11 @@
+import { BattleEntity } from "../../../types/BattleEntity";
 import { Box } from "@mui/material";
 import GridCell from "./GridCell";
 import { Scene } from "../../../types/Scene";
 
 type BoardProps = {
 	scene: Scene;
+	battleEntities?: BattleEntity[];
 	localBackground?: boolean;
 };
 
@@ -27,7 +29,11 @@ function Board(props: BoardProps) {
 						{[...Array(boardHeight)].map((e, y) => (
 							<tr key={y}>
 								{[...Array(boardWidth)].map((e, x) => (
-									<GridCell key={`${x},${y}`} coordinates={{ x, y }} />
+									<GridCell
+										key={`${x},${y}`}
+										coordinates={{ x, y }}
+										battleEntities={props.battleEntities}
+									/>
 								))}
 							</tr>
 						))}

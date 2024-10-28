@@ -4,8 +4,4 @@ export type Entity = {
 	name: string;
 	description: string;
 	color: string;
-
-	fileSrc: string;
-	x: number;
-	y: number;
 };

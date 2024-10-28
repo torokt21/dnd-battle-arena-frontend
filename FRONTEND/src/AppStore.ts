@@ -1,3 +1,4 @@
+import { BattleEntity } from "./types/BattleEntity";
 import { Coordinate } from "./types/Coordinate";
 import { Entity } from "./types/Entity";
 import { GameState } from "./types/GameState";
@@ -11,8 +12,8 @@ interface AppState {
 	alwaysShowNames: boolean;
 	setAlwaysShowNames: (alwaysShowNames: boolean) => void;
 
-	selectedEntity: Entity | undefined;
-	setSelectedEntity: (entity: Entity | undefined) => void;
+	selectedEntity: BattleEntity | undefined;
+	setSelectedEntity: (entity: BattleEntity | undefined) => void;
 
 	sidebarOpen: boolean;
 	setSidebarOpen: (open: boolean) => void;
