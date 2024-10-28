@@ -71,6 +71,14 @@ export default function BattlePage() {
 		setSelectedEntity(undefined);
 	};
 
+	const handleDeleteEntity = (entity: BattleEntity) => {
+		fetch(process.env.REACT_APP_API_URL + "/battleEntity/" + entity.id, {
+			method: "DELETE",
+		}).then(() => {
+			refetch();
+		});
+	};
+
 	return (
 		<>
 			<Box textAlign="center">
@@ -87,6 +95,7 @@ export default function BattlePage() {
 				scene={battle.scene}
 				battleEntities={battle.battle_entities}
 				onMoveSelectedEntity={(coords) => onMoveSelectedEntity(coords)}
+				onDeleteEntity={(entity) => handleDeleteEntity(entity)}
 			/>
 
 			<Modal open={entityModalOpen} onClose={() => setEntityModalOpen(false)}>

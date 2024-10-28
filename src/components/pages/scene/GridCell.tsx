@@ -1,13 +1,16 @@
-import { Tooltip, Typography } from "@mui/material";
+import { Menu, MenuItem, Tooltip, Typography } from "@mui/material";
 
 import { BattleEntity } from "../../../types/BattleEntity";
 import { Coordinate } from "../../../types/Coordinate";
 import { useAppStore } from "../../../AppStore";
+import { useState } from "react";
 
 type GridCellProps = {
 	coordinates: Coordinate;
 	battleEntities?: BattleEntity[];
 	onMoveSelectedEntityHere: (coordinates: Coordinate) => void;
+	onMarkDead: (battleEntity: BattleEntity) => void;
+	onDelete: (battleEntity: BattleEntity) => void;
 };
 
 export default function GridCell(props: GridCellProps) {
@@ -29,7 +32,6 @@ export default function GridCell(props: GridCellProps) {
 		backgroundImage: "url(" + bgImage + ")",
 		backgroundRepeat: "no-repeat",
 		backgroundSize: "cover",
-		backgroundColor: battleEntity?.entity.color,
 	} as React.CSSProperties;
 
 	if (showGrid) {
@@ -43,6 +45,8 @@ export default function GridCell(props: GridCellProps) {
 		style = {
 			...style,
 			boxShadow: "inset 0px 0px 1px 2px " + battleEntity.entity.color,
+			filter: battleEntity.dead ? "grayscale(100%)" : "",
+			backgroundColor: battleEntity.dead ? "black" : battleEntity.entity.color,
 		};
 	}
 
@@ -73,9 +77,11 @@ export default function GridCell(props: GridCellProps) {
 	return (
 		<td className="grid-cell" onClick={handleClick} style={style}>
 			{battleEntity && (
-				<TooltipWrapper title={battleEntity?.entity.name}>
-					<div className="character-image" />
-				</TooltipWrapper>
+				<ContextMenuWrapper {...props} battleEntity={battleEntity}>
+					<TooltipWrapper title={battleEntity?.entity.name}>
+						<div className="character-image" />
+					</TooltipWrapper>
+				</ContextMenuWrapper>
 			)}
 		</td>
 	);
@@ -87,6 +93,7 @@ function TooltipWrapper(props: { children: React.ReactElement; title?: string })
 	if (!props.title) {
 		return props.children;
 	}
+
 	return (
 		<Tooltip
 			open={alwaysShowNames ? true : undefined}
@@ -109,5 +116,55 @@ function TooltipWrapper(props: { children: React.ReactElement; title?: string })
 			sx={{ pointerEvents: "none", fontSize: "30px" }}>
 			{props.children}
 		</Tooltip>
+	);
+}
+
+function ContextMenuWrapper(
+	props: { children: React.ReactElement } & GridCellProps & { battleEntity: BattleEntity }
+) {
+	const handleContextMenu = (event: React.MouseEvent) => {
+		event.preventDefault();
+		setContextMenu(
+			contextMenu === null
+				? {
+						mouseX: event.clientX + 2,
+						mouseY: event.clientY - 6,
+				  }
+				: // repeated contextmenu when it is already open closes it with Chrome 84 on Ubuntu
+				  // Other native context menus might behave different.
+				  // With this behavior we prevent contextmenu from the backdrop to re-locale existing context menus.
+				  null
+		);
+	};
+
+	const handleClose = () => {
+		setContextMenu(null);
+	};
+
+	const handleDelete = () => {
+		props.onDelete(props.battleEntity);
+		handleClose();
+	};
+
+	const [contextMenu, setContextMenu] = useState<{
+		mouseX: number;
+		mouseY: number;
+	} | null>(null);
+	return (
+		<div onContextMenu={handleContextMenu}>
+			<Menu
+				open={contextMenu !== null}
+				onClose={handleClose}
+				anchorReference="anchorPosition"
+				anchorPosition={
+					contextMenu !== null
+						? { top: contextMenu.mouseY, left: contextMenu.mouseX }
+						: undefined
+				}>
+				<MenuItem onClick={handleClose}>Halott</MenuItem>
+				<MenuItem onClick={handleDelete}>Törlés</MenuItem>
+			</Menu>
+			{props.children}
+		</div>
 	);
 }

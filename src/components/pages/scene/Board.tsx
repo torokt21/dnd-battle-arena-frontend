@@ -8,6 +8,8 @@ type BoardProps = {
 	battleEntities?: BattleEntity[];
 	localBackground?: boolean;
 	onMoveSelectedEntity?: (coordinates: { x: number; y: number }) => void;
+	onMarkEntityDead?: (battleEntity: BattleEntity) => void;
+	onDeleteEntity?: (battleEntity: BattleEntity) => void;
 };
 
 function Board(props: BoardProps) {
@@ -37,6 +39,8 @@ function Board(props: BoardProps) {
 										onMoveSelectedEntityHere={(coords) =>
 											props.onMoveSelectedEntity?.(coords)
 										}
+										onMarkDead={(coords) => props.onMarkEntityDead?.(coords)}
+										onDelete={(coords) => props.onDeleteEntity?.(coords)}
 									/>
 								))}
 							</tr>

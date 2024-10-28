@@ -167,7 +167,7 @@ export default function Sidebar() {
 				<Divider />
 				<List>
 					<ListItem disablePadding>
-						<ListItemButton component={Link} to="/battle">
+						<ListItemButton component={Link} to="/">
 							<ListItemIcon>
 								<FlagIcon />
 							</ListItemIcon>
