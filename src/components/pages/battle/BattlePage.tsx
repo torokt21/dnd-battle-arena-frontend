@@ -79,6 +79,18 @@ export default function BattlePage() {
 		});
 	};
 
+	const handleMarkEntityDead = (entity: BattleEntity) => {
+		fetch(process.env.REACT_APP_API_URL + "/battleEntity/" + entity.id, {
+			method: "PUT",
+			headers: {
+				"Content-Type": "application/json",
+			},
+			body: JSON.stringify({ dead: !entity.dead }),
+		}).then(() => {
+			refetch();
+		});
+	};
+
 	return (
 		<>
 			<Box textAlign="center">
@@ -96,6 +108,7 @@ export default function BattlePage() {
 				battleEntities={battle.battle_entities}
 				onMoveSelectedEntity={(coords) => onMoveSelectedEntity(coords)}
 				onDeleteEntity={(entity) => handleDeleteEntity(entity)}
+				onMarkEntityDead={(entity) => handleMarkEntityDead(entity)}
 			/>
 
 			<Modal open={entityModalOpen} onClose={() => setEntityModalOpen(false)}>
