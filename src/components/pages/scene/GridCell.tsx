@@ -146,6 +146,11 @@ function ContextMenuWrapper(
 		handleClose();
 	};
 
+	const handleMarkDead = () => {
+		props.onMarkDead(props.battleEntity);
+		handleClose();
+	};
+
 	const [contextMenu, setContextMenu] = useState<{
 		mouseX: number;
 		mouseY: number;
@@ -161,7 +166,7 @@ function ContextMenuWrapper(
 						? { top: contextMenu.mouseY, left: contextMenu.mouseX }
 						: undefined
 				}>
-				<MenuItem onClick={handleClose}>Halott</MenuItem>
+				<MenuItem onClick={handleMarkDead}>Halott</MenuItem>
 				<MenuItem onClick={handleDelete}>Törlés</MenuItem>
 			</Menu>
 			{props.children}
