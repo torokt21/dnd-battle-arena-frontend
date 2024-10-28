@@ -7,6 +7,7 @@ type BoardProps = {
 	scene: Scene;
 	battleEntities?: BattleEntity[];
 	localBackground?: boolean;
+	onMoveSelectedEntity?: (coordinates: { x: number; y: number }) => void;
 };
 
 function Board(props: BoardProps) {
@@ -33,6 +34,9 @@ function Board(props: BoardProps) {
 										key={`${x},${y}`}
 										coordinates={{ x, y }}
 										battleEntities={props.battleEntities}
+										onMoveSelectedEntityHere={(coords) =>
+											props.onMoveSelectedEntity?.(coords)
+										}
 									/>
 								))}
 							</tr>

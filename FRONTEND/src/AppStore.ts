@@ -1,9 +1,7 @@
+import { devtools, persist } from "zustand/middleware";
+
 import { BattleEntity } from "./types/BattleEntity";
-import { Coordinate } from "./types/Coordinate";
-import { Entity } from "./types/Entity";
-import { GameState } from "./types/GameState";
 import { create } from "zustand";
-import { devtools } from "zustand/middleware";
 
 interface AppState {
 	showGrid: boolean;
@@ -20,22 +18,27 @@ interface AppState {
 }
 
 export const useAppStore = create<AppState>()(
-	devtools(
-		(set, get) => ({
-			showGrid: true,
-			setShowGrid: (showGrid) => set({ showGrid: showGrid }),
+	persist(
+		devtools(
+			(set, get) => ({
+				showGrid: true,
+				setShowGrid: (showGrid) => set({ showGrid: showGrid }),
 
-			alwaysShowNames: true,
-			setAlwaysShowNames: (alwaysShowNames) => set({ alwaysShowNames: alwaysShowNames }),
+				alwaysShowNames: true,
+				setAlwaysShowNames: (alwaysShowNames) => set({ alwaysShowNames: alwaysShowNames }),
 
-			selectedEntity: undefined,
-			setSelectedEntity: (entity) => set({ selectedEntity: entity }),
+				selectedEntity: undefined,
+				setSelectedEntity: (entity) => set({ selectedEntity: entity }),
 
-			sidebarOpen: false,
-			setSidebarOpen: (open) => set({ sidebarOpen: open }),
-		}),
+				sidebarOpen: false,
+				setSidebarOpen: (open) => set({ sidebarOpen: open }),
+			}),
+			{
+				name: "game-storage",
+			}
+		),
 		{
-			name: "bear-storage",
+			name: "game-storage", // name of the item in the storage (must be unique)
 		}
 	)
 );

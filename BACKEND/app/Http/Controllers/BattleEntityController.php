@@ -51,7 +51,24 @@ class BattleEntityController extends Controller
      */
     public function update(Request $request, BattleEntity $battleEntity)
     {
-        //
+        $rules = [
+            'x' => 'required|integer',
+            'y' => 'required|integer',
+        ];
+
+        // Validate request and return errors
+        $validator = Validator::make($request->all(), $rules);
+
+        if ($validator->fails()) {
+            return response()->json(['errors' => $validator->errors()], 422);
+        }
+
+        $validated = $validator->validated();
+
+        $battleEntity->x = $validated['x'];
+        $battleEntity->y = $validated['y'];
+        $battleEntity->save();
+        return $battleEntity;
     }
 
     /**

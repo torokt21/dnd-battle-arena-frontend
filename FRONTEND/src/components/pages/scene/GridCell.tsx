@@ -2,12 +2,12 @@ import { Tooltip, Typography } from "@mui/material";
 
 import { BattleEntity } from "../../../types/BattleEntity";
 import { Coordinate } from "../../../types/Coordinate";
-import { Entity } from "../../../types/Entity";
 import { useAppStore } from "../../../AppStore";
 
 type GridCellProps = {
 	coordinates: Coordinate;
 	battleEntities?: BattleEntity[];
+	onMoveSelectedEntityHere: (coordinates: Coordinate) => void;
 };
 
 export default function GridCell(props: GridCellProps) {
@@ -18,35 +18,40 @@ export default function GridCell(props: GridCellProps) {
 
 	const battleEntity = props.battleEntities?.find((e) => e.x === x && e.y === y);
 
+	const isSelected = selectedEntity && battleEntity && battleEntity.id === selectedEntity.id;
+
 	// TODO get entity in cell
 	const bgImage = battleEntity?.entity.image
 		? process.env.REACT_APP_STORAGE_URL + "/" + battleEntity?.entity.image
 		: "";
 
-	const getCellStyle = (): React.CSSProperties | undefined => {
-		let style = {
-			backgroundImage: "url(" + bgImage + ")",
-			backgroundRepeat: "no-repeat",
-			backgroundSize: "cover",
-			backgroundColor: battleEntity?.entity.color,
-		} as React.CSSProperties;
+	let style = {
+		backgroundImage: "url(" + bgImage + ")",
+		backgroundRepeat: "no-repeat",
+		backgroundSize: "cover",
+		backgroundColor: battleEntity?.entity.color,
+	} as React.CSSProperties;
 
-		if (showGrid) {
-			style = {
-				...style,
-				boxShadow: "0 0 0 1px rgba(0, 0, 0, 0.2) inset",
-			};
-		}
+	if (showGrid) {
+		style = {
+			...style,
+			boxShadow: "0 0 0 1px rgba(0, 0, 0, 0.2) inset",
+		};
+	}
 
-		if (selectedEntity && battleEntity && battleEntity.id === selectedEntity.id) {
-			style = {
-				...style,
-				boxShadow: "inset 0px 0px 1px 3px rgba(255,0,0,1)",
-			};
-		}
+	if (battleEntity) {
+		style = {
+			...style,
+			boxShadow: "inset 0px 0px 1px 2px " + battleEntity.entity.color,
+		};
+	}
 
-		return style;
-	};
+	if (isSelected) {
+		style = {
+			...style,
+			boxShadow: "inset 0px 0px 1px 3px rgba(255,0,0,1)",
+		};
+	}
 
 	const handleClick = () => {
 		if (battleEntity && battleEntity.id === selectedEntity?.id) {
@@ -55,7 +60,7 @@ export default function GridCell(props: GridCellProps) {
 		}
 
 		if (!battleEntity && selectedEntity) {
-			//moveEntity(selectedEntity, { x, y });
+			props.onMoveSelectedEntityHere({ x, y });
 			return;
 		}
 
@@ -66,10 +71,10 @@ export default function GridCell(props: GridCellProps) {
 	};
 
 	return (
-		<td className="grid-cell" onClick={handleClick} style={getCellStyle()}>
-			{battleEntity && ( // TODO
+		<td className="grid-cell" onClick={handleClick} style={style}>
+			{battleEntity && (
 				<TooltipWrapper title={battleEntity?.entity.name}>
-					<img className="character-image" alt="" />
+					<div className="character-image" />
 				</TooltipWrapper>
 			)}
 		</td>

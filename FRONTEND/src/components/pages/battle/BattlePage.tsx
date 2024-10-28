@@ -1,9 +1,11 @@
 import { Box, Button, Modal } from "@mui/material";
 
+import { BattleEntity } from "../../../types/BattleEntity";
 import Board from "../scene/Board";
 import { Entity } from "../../../types/Entity";
 import EntityList from "../entity/EntityList";
 import LoadingIndicator from "../../controls/LoadingIndicator";
+import { useAppStore } from "../../../AppStore";
 import useBattle from "../../../hooks/useBattle";
 import { useParams } from "react-router-dom";
 import { useState } from "react";
@@ -24,6 +26,8 @@ export default function BattlePage() {
 	const battleId = Number(useParams().id);
 	const { loading, result: battle, error, refetch } = useBattle(battleId);
 	const [entityModalOpen, setEntityModalOpen] = useState(false);
+	const selectedEntity = useAppStore((state) => state.selectedEntity);
+	const setSelectedEntity = useAppStore((state) => state.setSelectedEntity);
 
 	if (loading && !battle) {
 		return <LoadingIndicator />;
@@ -45,13 +49,38 @@ export default function BattlePage() {
 		});
 	};
 
+	const moveBattleEntity = (entity: BattleEntity, coordinates: { x: number; y: number }) => {
+		fetch(process.env.REACT_APP_API_URL + "/battleEntity/" + entity.id, {
+			method: "PUT",
+			headers: {
+				"Content-Type": "application/json",
+			},
+			body: JSON.stringify(coordinates),
+		}).then(() => {
+			refetch();
+		});
+	};
+
+	const onMoveSelectedEntity = (coordinates: { x: number; y: number }) => {
+		if (!selectedEntity) {
+			return;
+		}
+
+		moveBattleEntity(selectedEntity, coordinates);
+		setSelectedEntity(undefined);
+	};
+
 	return (
 		<>
 			<Box>
 				<Button onClick={() => setEntityModalOpen(true)}>Entitás</Button>
 			</Box>
 
-			<Board scene={battle.scene} battleEntities={battle.battle_entities} />
+			<Board
+				scene={battle.scene}
+				battleEntities={battle.battle_entities}
+				onMoveSelectedEntity={(coords) => onMoveSelectedEntity(coords)}
+			/>
 
 			<Modal open={entityModalOpen} onClose={() => setEntityModalOpen(false)}>
 				<Box sx={modalBoxStyle}>
