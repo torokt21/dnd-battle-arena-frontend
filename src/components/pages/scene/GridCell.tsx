@@ -24,8 +24,8 @@ export default function GridCell(props: GridCellProps) {
 	const isSelected = selectedEntity && battleEntity && battleEntity.id === selectedEntity.id;
 
 	// TODO get entity in cell
-	const bgImage = battleEntity?.entity.image
-		? process.env.REACT_APP_STORAGE_URL + "/" + battleEntity?.entity.image
+	const bgImage = battleEntity?.entity?.image
+		? process.env.REACT_APP_STORAGE_URL + "/" + battleEntity?.entity?.image
 		: "";
 
 	let style = {
